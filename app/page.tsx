@@ -2,6 +2,7 @@ import CompanionCard from "@/components/CompanionCard";
 import CompanionsList from "@/components/CompanionsList";
 import CTA from "@/components/CTA";
 import { Button } from "@/components/ui/button";
+import { recentSessions } from "@/constants";
 
 const Page = () => {
   return (
@@ -10,15 +11,15 @@ const Page = () => {
       <section className="home-section">
         <CompanionCard
           id="123"
-          name="Sabrina The Brainiac"
-          topic="Neural Circuit"
+          name="Alakazam the Mind Scholar"
+          topic="Neural Network of the Brain"
           subject="science"
           duration={45}
           color="#e5d0ff"
         />
         <CompanionCard
         id="456"
-          name="Ash The Human Calculator"
+          name="Abra the Math Wizard"
           topic="Derivatives & Integrals"
           subject="maths"
           duration={30}
@@ -26,7 +27,7 @@ const Page = () => {
            />
         <CompanionCard
         id="789"
-          name="Misty the Lexical Treasurer"
+          name="Chatot the Word Whistler"
           topic="English Literature"
           subject="language"
           duration={30}
@@ -34,7 +35,7 @@ const Page = () => {
            />
       </section>
       <section className="home-section">
-        <CompanionsList />
+        <CompanionsList title="Recently completed sessions" companions={recentSessions} classNames="w-2/3 max-lg:w-full" />
         <CTA />
       </section>
     </main>
