@@ -1,3 +1,4 @@
+
 export const subjects = [
   "maths",
   "language",
@@ -25,7 +26,7 @@ export const recentSessions = [
   {
     id: "1",
     subject: "science",
-    name: "Neura the Brainy Explorer",
+    name: "Alakazam the Mind Scholar",
     topic: "Neural Network of the Brain",
     duration: 45,
     color: "#E5D0FF",
@@ -33,7 +34,7 @@ export const recentSessions = [
   {
     id: "2",
     subject: "maths",
-    name: "Countsy the Number Wizard",
+    name: "Abra the Math Wizard",
     topic: "Derivatives & Integrals",
     duration: 30,
     color: "#FFDA6E",
@@ -41,7 +42,7 @@ export const recentSessions = [
   {
     id: "3",
     subject: "language",
-    name: "Verba the Vocabulary Builder",
+    name: "Chatot the Word Whistler",
     topic: "English Literature",
     duration: 30,
     color: "#BDE7FF",
@@ -49,7 +50,7 @@ export const recentSessions = [
   {
     id: "4",
     subject: "coding",
-    name: "Codey the Logic Hacker",
+    name: "Machamp the Logic Striker",
     topic: "Intro to If-Else Statements",
     duration: 45,
     color: "#FFC8E4",
@@ -57,7 +58,7 @@ export const recentSessions = [
   {
     id: "5",
     subject: "history",
-    name: "Memo, the Memory Keeper",
+    name: "Snorlax the Memory Snoozer",
     topic: "World Wars: Causes & Consequences",
     duration: 15,
     color: "#FFECC8",
@@ -65,7 +66,7 @@ export const recentSessions = [
   {
     id: "6",
     subject: "economics",
-    name: "The Market Maestro",
+    name: "Chansey the Market Healer",
     topic: "The Basics of Supply & Demand",
     duration: 10,
     color: "#C8FFDF",
