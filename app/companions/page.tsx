@@ -1,10 +1,9 @@
-import React from 'react'
 
 const CompanionsLibrary = () => {
   return (
-    <div>
+    <main>
       Companions Library
-    </div>
+    </main>
   )
 }
 
