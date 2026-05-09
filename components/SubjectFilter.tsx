@@ -15,12 +15,12 @@ const SubjectFilter = () => {
   const pathName = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const query = searchParams.get("topic") || "";
+  const query = searchParams.get("subject") || "all";
   const [subject, setsubject] = useState(query);
   useEffect(() => {
     const searchInterval = setTimeout(() => {
         let newUrl=""
-      if (subject==="all") {
+      if (subject==="all" || !subject) {
         newUrl = removeKeysFromUrlQuery({
             params: searchParams.toString(),
             keysToRemove: ["subject"],

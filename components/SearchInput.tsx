@@ -10,6 +10,11 @@ const SearchInput = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get("topic") || "";
   const [searchQuery, setsearchQuery] = useState(query);
+
+  useEffect(() => {
+    setsearchQuery(query);
+  }, [query]);
+
   useEffect(() => {
     const searchInterval = setTimeout(() => {
       if (searchQuery) {
@@ -33,7 +38,7 @@ const SearchInput = () => {
     }, 500);
 
     return () => clearTimeout(searchInterval);
-  }, [searchQuery, router, searchParams, pathName]);
+  }, [searchQuery]);
 
   return (
     <div className="relative border boder-black rounded-lg items-center flex gap-2 px-2 py-1 h-fit">
