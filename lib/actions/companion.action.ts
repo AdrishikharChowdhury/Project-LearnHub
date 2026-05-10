@@ -2,6 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { createSupabaseClient } from "../supabase";
+import da from "zod/v4/locales/da.cjs";
 
 export const createCompanion = async (formatData: CreateCompanion) => {
   const { userId: author } = await auth();
@@ -100,9 +101,39 @@ export const getUserCompanions = async (userId: string) => {
   const { data, error } = await supabase
     .from("companions")
     .select()
-    .eq("author", userId)
-    
+    .eq("author", userId);
 
   if (error) throw new Error(error.message);
   return data;
+};
+
+export const newCompanionPermission = async () => {
+  const { userId, has } = await auth();
+  const supabase = createSupabaseClient();
+  let limit = 0;
+  if (has({ plan: "champion" })) {
+    return true;
+  } else if (has({ feature: "5_active_companions" })) {
+    limit = 5;
+  } else if (has({ feature: "20_active_companions" })) {
+    limit = 20;
+  } else if (has({ feature: "40_active_companions" })) {
+    limit = 40;
+  } else if (has({ feature: "60_active_companions" })) {
+    limit = 60;
+  }
+
+  const { data, error } = await supabase
+    .from("companions")
+    .select("id", { count: "exact" })
+    .eq("author", userId);
+
+  if (error) throw new Error(error.message);
+  const companionCount = data?.length;
+
+  if (companionCount > limit) {
+    return false;
+  } else {
+    return true;
+  }
 };
