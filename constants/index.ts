@@ -6,6 +6,7 @@ export const subjects = [
   "history",
   "coding",
   "economics",
+  "cybersecurity",
 ];
 
 export const subjectsColors = {
@@ -15,6 +16,7 @@ export const subjectsColors = {
   coding: "#FFC8E4",
   history: "#FFECC8",
   economics: "#C8FFDF",
+  cybersecurity:"#92e8a8"
 };
 
 export const voices = {
@@ -28,7 +30,7 @@ export const recentSessions = [
     subject: "science",
     name: "Alakazam the Mind Scholar",
     topic: "Neural Network of the Brain",
-    duration: 45,
+    duration: 10,
     color: "#E5D0FF",
   },
   {
@@ -36,7 +38,7 @@ export const recentSessions = [
     subject: "maths",
     name: "Abra the Math Wizard",
     topic: "Derivatives & Integrals",
-    duration: 30,
+    duration: 10,
     color: "#FFDA6E",
   },
   {
@@ -44,7 +46,7 @@ export const recentSessions = [
     subject: "language",
     name: "Chatot the Word Whistler",
     topic: "English Literature",
-    duration: 30,
+    duration: 10,
     color: "#BDE7FF",
   },
   {
@@ -52,7 +54,7 @@ export const recentSessions = [
     subject: "coding",
     name: "Machamp the Logic Striker",
     topic: "Intro to If-Else Statements",
-    duration: 45,
+    duration: 10,
     color: "#FFC8E4",
   },
   {
@@ -60,7 +62,7 @@ export const recentSessions = [
     subject: "history",
     name: "Snorlax the Memory Snoozer",
     topic: "World Wars: Causes & Consequences",
-    duration: 15,
+    duration: 10,
     color: "#FFECC8",
   },
   {
