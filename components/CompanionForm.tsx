@@ -42,7 +42,7 @@ const CompanionForm = () => {
       topic: "",
       voice: "",
       style: "",
-      duration: 15,
+      duration: 10,
     },
   });
 
@@ -167,25 +167,6 @@ const CompanionForm = () => {
                   <SelectItem value='casual' className='capitalize'>casual</SelectItem>
                 </SelectContent>
               </Select>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-        <Controller
-          name="duration"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="form-rhf-demo-title">Estimated Session Duration in Minutes:</FieldLabel>
-              <Input
-              type="number"
-                {...field}
-                id="form-rhf-demo-title"
-                aria-invalid={fieldState.invalid}
-                placeholder="10"
-                autoComplete="off"
-                className="input"
-              />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
