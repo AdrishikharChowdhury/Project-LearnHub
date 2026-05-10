@@ -2,10 +2,11 @@ import CompanionCard from "@/components/CompanionCard";
 import CompanionsList from "@/components/CompanionsList";
 import CTA from "@/components/CTA";
 import { recentSessions } from "@/constants";
-import { getAllCompanions } from "@/lib/actions/companion.action";
+import { getAllCompanions, getRecentSessions, getUserSessions } from "@/lib/actions/companion.action";
 
 const Page = async () => {
-  const companions = await getAllCompanions({});
+  const companions = await getAllCompanions({ limit: 3 });
+  const recentSessionsCompanions=await getRecentSessions(10)
   return (
     <main>
       <h1>Popular Companions</h1>
@@ -21,7 +22,7 @@ const Page = async () => {
       <section className="home-section">
         <CompanionsList
           title="Recently completed sessions"
-          companions={companions.length < 0 ? recentSessions : companions}
+          companions={recentSessionsCompanions}
           classNames="w-2/3 max-lg:w-full"
         />
         <CTA />

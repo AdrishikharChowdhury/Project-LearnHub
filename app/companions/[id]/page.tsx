@@ -18,7 +18,7 @@ const CompanionSession = async ({ params }: CompanionSessionPageProps) => {
   if (!user) redirect("/sign-in");
   if (!name) redirect("/companions");
   return (
-    <main>
+    <main className="w-full">
       <article className="flex rounded-border justify-between p-6 max-md:flex-col">
         <div className="flex items-center gap-2">
           <div
