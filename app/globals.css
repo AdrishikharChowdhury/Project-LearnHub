@@ -124,6 +124,7 @@ body {
 }
 
 @layer base {
+
   * {
     @apply border-border outline-ring/50;
   }
@@ -139,6 +140,8 @@ body {
 }
 
 @layer components {
+  .companion-list a { text-decoration: none !important; }
+  .companion-list p { margin: 0 !important; }
   .home-section {
     @apply flex gap-4 justify-between items-start w-full max-lg:flex-col-reverse max-lg:items-center;
   }

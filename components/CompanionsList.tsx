@@ -24,7 +24,7 @@ const CompanionsList = ({
 }: CompanionListProps) => {
   return (
     <article className={cn("companion-list", classNames)}>
-      <h2 className="text-3xl font-semibold">Recent Sessions</h2>
+      <h2 className="text-3xl font-semibold">{title}</h2>
       <Table>
         <TableHeader>
           <TableRow>
@@ -37,7 +37,7 @@ const CompanionsList = ({
           {companions?.map((companion,idx:number) => (
             <TableRow key={idx}>
               <TableCell>
-                <Link href={`/companions/${companion.id}`}>
+                <Link href={`/companions/${companion.id}`}  className="no-underline! hover:no-underline active:no-underline">
                   <div className="flex items-center gap-2">
                     <div
                       className="size-18 flex items-center justify-center rounded-lg max-md:hidden"
