@@ -5,7 +5,7 @@ import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import soundwaves from "@/constants/soundwaves.json";
-import { addToSessionHistory } from "@/lib/actions/companion.action";
+import { addToSessionHistory, sessionRecorded } from "@/lib/actions/companion.action";
 
 enum CallStatus {
   INACTIVE = "INACTIVE",
@@ -28,6 +28,7 @@ const CompanionComponent = ({
   const [isSpeaking, setisSpeaking] = useState(false);
   const lottieRef = useRef<LottieRefCurrentProps>(null);
   const [isMuted, setisMuted] = useState(false);
+  const messagesRef = useRef<SavedMessage[]>([]);
   const [messages, setmessages] = useState<SavedMessage[]>([])
   useEffect(() => {
     if (lottieRef) {
@@ -41,13 +42,15 @@ const CompanionComponent = ({
 
   useEffect(() => {
     const onStart = () => setcallStatus(CallStatus.ACTIVE);
-    const onEnd = () => {
+    const onEnd = async () => {
       setcallStatus(CallStatus.FINISHED)
       addToSessionHistory(companionId)
+      await sessionRecorded(messagesRef.current,companionId)
     };
     const onMessage = (message:Message) => {
       if(message.type==='transcript' && message.transcriptType==='final'){
         const newMessage={role:message.role,content:message.transcript}
+        messagesRef.current.push(newMessage);
         setmessages((prev)=>[newMessage,...prev])
       }
     };
@@ -56,6 +59,7 @@ const CompanionComponent = ({
     };
     const onSpeechEnd = () => {
       setisSpeaking(false);
+      
     };
     const onError = (error: Error) => {
       console.log(error.message);

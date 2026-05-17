@@ -60,3 +60,41 @@ export const configureAssistant = (voice: string, style: string) => {
   };
   return vapiAssistant;
 };
+
+export const mergeConsecutiveSameRoleMessages = (messages: SavedMessage[]): SavedMessage[] => {
+  if (messages.length === 0) return [];
+
+  const merged: SavedMessage[] = [];
+  let current = { ...messages[0] };
+
+  for (let i = 1; i < messages.length; i++) {
+    const next = messages[i];
+    if (next.role === current.role) {
+      // Append with a space, then clean up extra whitespace
+      current.content = `${current.content} ${next.content}`.trim();
+    } else {
+      merged.push(current);
+      current = { ...next };
+    }
+  }
+  
+  // Don't forget the last accumulated message
+  merged.push(current);
+  return merged;
+};
+
+export const formatTimestamp = (
+  timestamp: string | Date,
+  locale: string = "en-US"
+) => {
+  const date = new Date(timestamp);
+
+  return date.toLocaleString(locale, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
