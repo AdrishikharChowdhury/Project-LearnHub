@@ -3,6 +3,32 @@
 import { auth } from "@clerk/nextjs/server";
 import { createSupabaseClient } from "../supabase";
 import da from "zod/v4/locales/da.cjs";
+import { mergeConsecutiveSameRoleMessages } from "../utils";
+
+export const sessionRecorded = async (
+  messages: SavedMessage[],
+  companionId: string,
+) => {
+  const { userId:author } = await auth();
+  const supabase = createSupabaseClient();
+  messages = mergeConsecutiveSameRoleMessages(messages);
+
+  const { data, error } = await supabase
+    .from("session_messages")
+    .insert({
+      author,
+      messages,
+      companion_id: companionId,
+    })
+    .select()
+    .single();
+
+  if (error || !data) {
+    throw new Error(error?.message || "Failed to save session messages");
+  }
+
+  return data; // Returns all inserted records
+};
 
 export const createCompanion = async (formatData: CreateCompanion) => {
   const { userId: author } = await auth();
@@ -106,6 +132,40 @@ export const getUserCompanions = async (userId: string) => {
   if (error) throw new Error(error.message);
   return data;
 };
+
+export const getUserHistory = async (userId: string) => {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("session_messages")
+    .select("id,companion_id,created_at")
+    .eq("author", userId);
+
+  if (error) throw new Error(error.message);
+  return data;
+};
+
+export const getMessages=async (id:string) => {
+  const supabase=createSupabaseClient()
+  const { data, error } = await supabase
+    .from("session_messages")
+    .select("messages")
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+  return data[0];
+}
+
+export const sessionHistoryPermission=async () => {
+  const { has } = await auth();
+  if (has({ plan: "champion" })) {
+    return true;
+  }
+  else if(has({feature:"save_conversation_history"})){
+    return true
+  }
+  else if(has({ plan: "bugcatcher" })){
+    return false
+  }
+}
 
 export const newCompanionPermission = async () => {
   const { userId, has } = await auth();
