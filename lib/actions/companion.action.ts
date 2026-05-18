@@ -9,7 +9,7 @@ export const sessionRecorded = async (
   messages: SavedMessage[],
   companionId: string,
 ) => {
-  const { userId:author } = await auth();
+  const { userId: author } = await auth();
   const supabase = createSupabaseClient();
   messages = mergeConsecutiveSameRoleMessages(messages);
 
@@ -144,28 +144,26 @@ export const getUserHistory = async (userId: string) => {
   return data;
 };
 
-export const getMessages=async (id:string) => {
-  const supabase=createSupabaseClient()
+export const getMessages = async (id: string) => {
+  const supabase = createSupabaseClient();
   const { data, error } = await supabase
     .from("session_messages")
     .select("messages")
     .eq("id", id);
   if (error) throw new Error(error.message);
   return data[0];
-}
+};
 
-export const sessionHistoryPermission=async () => {
+export const sessionHistoryPermission = async () => {
   const { has } = await auth();
   if (has({ plan: "champion" })) {
     return true;
+  } else if (has({ feature: "save_conversation_history" })) {
+    return true;
+  } else if (has({ plan: "bugcatcher" })) {
+    return false;
   }
-  else if(has({feature:"save_conversation_history"})){
-    return true
-  }
-  else if(has({ plan: "bugcatcher" })){
-    return false
-  }
-}
+};
 
 export const newCompanionPermission = async () => {
   const { userId, has } = await auth();
@@ -196,4 +194,17 @@ export const newCompanionPermission = async () => {
   } else {
     return true;
   }
+};
+
+export const getCompanionSession = async (companionId: string) => {
+  const supabase = createSupabaseClient();
+  const { userId }=await auth()
+  const { count, error } = await supabase
+    .from("session_history")
+    .select("id", { count: "exact", head: true })
+    .eq("companion_id", companionId)
+    .eq("user_id", userId);
+
+  if (error) throw new Error(error.message)
+  return (count ?? 0) >= 5;
 };
