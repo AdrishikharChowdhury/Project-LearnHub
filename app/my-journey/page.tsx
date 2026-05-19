@@ -96,15 +96,17 @@ const Profile = async () => {
             Conversation History ({messagesHistories.length})
           </AccordionTrigger>
           <AccordionContent>
-            <section className="home-section overflow-scroll no-scrollbar justify-start bg-white p-5 border-2 border-black rounded-4xl">
-              {messagesHistories.map((messageHistory, idx: number) => (
+            <section className="home-section flex-col overflow-scroll justify-start bg-white p-5 border-2 border-black rounded-4xl">
+              <h1>Conversation History</h1>
+              <div className="flex gap-4">
+              {messagesHistories.reverse().map((messageHistory, idx: number) => (
                 <SessionCard
                   key={idx}
                   companion_id={messageHistory.companion_id}
                   id={messageHistory.id}
                   created_at={messageHistory.created_at}
                 />
-              ))}
+              ))}</div>
             </section>
           </AccordionContent>
         </AccordionItem>)}

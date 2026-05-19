@@ -17,7 +17,7 @@ const SessionCard = async ({ companion_id, id, created_at }: messageProps) => {
       href={`/my-journey/session/${id}`}
     >
       <div
-        className="h-50 w-80 rounded-4xl border-2 bg-yellow-400 p-5"
+        className="min-h-max w-80 rounded-4xl border-2 bg-yellow-400 p-5"
         style={{ backgroundColor: getSubjectColor(companion.subject) }}
       >
         <h2 className="text-xl font-bold">{companion.name}</h2>
