@@ -16,7 +16,7 @@ const page = async ({ params }: MessageSessionPageProps) => {
   const user = await currentUser();
   const isMessageHistory = await sessionHistoryPermission();
   if (!user) redirect("/sign-in");
-  console.log(id);
+
   return (
     isMessageHistory && (
       <main className="h-[90vh] overflow-y-scroll">

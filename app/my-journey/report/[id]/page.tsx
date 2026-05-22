@@ -1,13 +1,24 @@
+import QuestionCards from "@/components/QuestionCards";
+import ReportContent from "@/components/ReportContent";
+import { getAllQuizAnswers } from "@/lib/actions/quiz.action";
+import { formatTimestamp } from "@/lib/utils";
+import { currentUser } from "@clerk/nextjs/server";
 
-const options=["(a)","(b)","(c)","(d)"]
+import { redirect } from "next/navigation";
 
-const QuizReport = () => {
-  return (
-    <main className='flex justify-center w-full flex-col items-center'>
-      <h1>Quiz Report</h1>
-      
-    </main>
-  )
+
+interface QuizPageProps {
+  params: Promise<{ id: string }>;
 }
 
-export default QuizReport
+const QuizReport = async ({ params }: QuizPageProps) => {
+  const { id } = await params;
+  const user = await currentUser();
+  if (!user) redirect("/sign-in");
+  const quizData:QuizAttempt = await getAllQuizAnswers(user.id, id);
+  return (
+    <ReportContent quizData={quizData} />
+  );
+};
+
+export default QuizReport;
