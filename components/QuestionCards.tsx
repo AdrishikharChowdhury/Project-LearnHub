@@ -1,19 +1,23 @@
 "use client";
 
+import { saveQuizAttempt } from "@/lib/actions/quiz.action";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface QuestionCardsProps {
   questions: QuizQuestion[];
+  companionId:string
 }
 
-const QuestionCards = ({ questions }: QuestionCardsProps) => {
+const QuestionCards = ({ questions,companionId }: QuestionCardsProps) => {
   const [questionNo, setQuestionNo] = useState(0);
   const [selected, setSelected] = useState("");
   const [questionsState, setQuestionsState] = useState(
     questions.map((q) => ({ ...q, my_answer: 0 })),
   );
-  const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
+
   const nextQuestion = () => {
     setQuestionNo((q) => q + 1);
     setSelected("");
@@ -26,9 +30,19 @@ const QuestionCards = ({ questions }: QuestionCardsProps) => {
   const prevQuestion = () => {
     setQuestionNo((q) => q - 1);
   };
-  const onSubmit = () => {
-    setSubmitted(true);
-    console.log(questionsState);
+  const onSubmit = async () => {
+    const correctAnswers = questionsState.filter(
+      (q) => q.correctAnswer === q.my_answer,
+    );
+    const score = Math.round((correctAnswers.length / questions.length) * 100);
+    await saveQuizAttempt(
+      companionId,
+      questionsState,
+      score,
+      questions.length,
+      correctAnswers.length,
+    );
+    redirect("/my-journey")
   };
   return (
     <div className="flex flex-col w-full min-h-1/2 justify-between border-2 shadow-xl gap-4">

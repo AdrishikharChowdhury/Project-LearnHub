@@ -74,3 +74,29 @@ export const saveQuizScore = async (companionId: string, score: number) => {
     .eq("id", companionId);
   if (updateError) throw new Error(updateError.message);
 };
+
+export const saveQuizAttempt = async (
+  companionId: string,
+  questions: QuizQuestion[],
+  score: number,
+  totalQuestions: number,
+  correctAnswers: number,
+) => {
+  const { userId } = await auth();
+  if (!userId) throw new Error("unauthorized");
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("quiz_attempts")
+    .insert({
+      companion_id: companionId,
+      author: userId,
+      questions,
+      score,
+      total_questions:totalQuestions,
+      correct_answers:correctAnswers,
+    });
+
+  if (error){
+    throw new Error(error?.message || "Failed to save quiz attempt");}
+  return data;
+};

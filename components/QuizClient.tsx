@@ -11,7 +11,7 @@ const QuizClient = async ({ companionId }: QuizClientProps) => {
   return (
     <main className="h-[90vh] w-3/5 flex flex-col justify-center items-center overflow-y-scroll">
       <h1 className="text-4xl">Quiz Session</h1>
-      <QuestionCards questions={questions} />
+      <QuestionCards companionId={companionId} questions={questions} />
     </main>
   );
 };
