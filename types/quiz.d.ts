@@ -8,3 +8,28 @@ interface QuizScoreEntry {
   score: number;
   completed_at: string;
 }
+
+interface QuizCard {
+  id: string;
+  companion_id: string;
+  companions: {
+    topic: string;
+    subject: string;
+  };
+  created_at: string;
+}
+
+interface QuizAttempt {
+  companion_id: string;
+  created_at: string;
+  score: number;
+  questions: {
+    options: string[];
+    question: string;
+    my_answer: number;
+    explanation: string;
+    correctAnswer: number;
+  }[];
+  correct_answers: number;
+  companions: { topic: string; subject: string }[];
+}

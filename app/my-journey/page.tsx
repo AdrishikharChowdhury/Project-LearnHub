@@ -1,4 +1,6 @@
 import CompanionsList from "@/components/CompanionsList";
+import MessagesList from "@/components/MessagesList";
+import QuizList from "@/components/QuizList";
 import SessionCard from "@/components/SessionCard";
 import {
   Accordion,
@@ -22,8 +24,7 @@ const Profile = async () => {
 
   const companions = await getUserCompanions(user.id);
   const sessionHistory = await getUserSessions(user.id);
-  const messagesHistories = await getUserHistory(user.id);
-  const isMessageHistory=await sessionHistoryPermission()
+  
   return (
     <main className="lg:w-3/4">
       <section className="flex justify-between gap-4 max-sm:flex-col items-center">
@@ -91,25 +92,8 @@ const Profile = async () => {
             <CompanionsList title="My Companions" companions={companions} />
           </AccordionContent>
         </AccordionItem>
-        {isMessageHistory &&(<AccordionItem value="history">
-          <AccordionTrigger className="text-2xl font-bold">
-            Conversation History ({messagesHistories.length})
-          </AccordionTrigger>
-          <AccordionContent>
-            <section className="home-section flex-col overflow-scroll justify-start bg-white p-5 border-2 border-black rounded-4xl">
-              <h1>Conversation History</h1>
-              <div className="flex gap-4">
-              {messagesHistories.reverse().map((messageHistory, idx: number) => (
-                <SessionCard
-                  key={idx}
-                  companion_id={messageHistory.companion_id}
-                  id={messageHistory.id}
-                  created_at={messageHistory.created_at}
-                />
-              ))}</div>
-            </section>
-          </AccordionContent>
-        </AccordionItem>)}
+        <MessagesList />
+        <QuizList />
       </Accordion>
     </main>
   );

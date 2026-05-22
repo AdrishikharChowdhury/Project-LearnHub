@@ -5,6 +5,7 @@ import Groq from "groq-sdk";
 import { error } from "next/dist/build/output/log";
 import { createSupabaseClient } from "../supabase";
 import { getAssistantMessages } from "../utils";
+import { redirect } from "next/navigation";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
@@ -85,18 +86,59 @@ export const saveQuizAttempt = async (
   const { userId } = await auth();
   if (!userId) throw new Error("unauthorized");
   const supabase = createSupabaseClient();
+  const { data, error } = await supabase.from("quiz_attempts").insert({
+    companion_id: companionId,
+    author: userId,
+    questions,
+    score,
+    total_questions: totalQuestions,
+    correct_answers: correctAnswers,
+  });
+
+  if (error) {
+    throw new Error(error?.message || "Failed to save quiz attempt");
+  }
+  return data;
+};
+
+export const getAllQuizSessions = async (userId: string) => {
+  const supabase = createSupabaseClient();
   const { data, error } = await supabase
     .from("quiz_attempts")
-    .insert({
-      companion_id: companionId,
-      author: userId,
-      questions,
-      score,
-      total_questions:totalQuestions,
-      correct_answers:correctAnswers,
-    });
+    .select(`
+      id,
+      companion_id,
+      companions (
+        topic,
+        subject
+      ),created_at
+    `)
+    .eq("author", userId);
 
-  if (error){
-    throw new Error(error?.message || "Failed to save quiz attempt");}
-  return data;
+  if (error) {
+    throw new Error(error.message);
+  }
+  
+  return data as unknown as QuizCard[];
+};
+
+export const getAllQuizAnswers = async (userId: string,id:string) => {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("quiz_attempts")
+    .select(`
+      companion_id,
+      companions (
+        topic,
+        subject
+      ),created_at,score,questions,correct_answers
+    `)
+    .eq("author", userId).eq('id',id)
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  
+  const result = data[0];
+  return result;
 };
