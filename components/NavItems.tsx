@@ -19,9 +19,13 @@ const navItems: navItems[] = [
     href: "/companions",
   },
   {
+    label: "Quizzes",
+    href:"/quiz"
+  },
+  {
     label: "My Journey",
     href: "/my-journey",
-  },
+  }
 ];
 
 const NavItems = () => {

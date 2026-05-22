@@ -98,3 +98,6 @@ export const formatTimestamp = (
     hour12: true,
   });
 };
+
+export const getAssistantMessages = (messages: SavedMessage[]) =>
+  messages.filter((m) => m.role !== "user");
