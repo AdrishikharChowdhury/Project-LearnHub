@@ -2,20 +2,29 @@
 
 import { CheckCheck, X } from "lucide-react";
 import { formatTimestamp } from "@/lib/utils";
+import dynamic from "next/dynamic";
+
+const DownloadPDFButton = dynamic(() => import("./DownloadPDFButton"), {
+  ssr: false,
+});
 
 const alphaOptions = ["(a)", "(b)", "(c)", "(d)"];
 
-interface ReportContent {
+interface ReportContentProps {
   quizData: QuizAttempt;
 }
 
-const ReportContent = ({ quizData }: ReportContent) => {
+const ReportContent = ({ quizData }: ReportContentProps) => {
   const companion = Array.isArray(quizData.companions)
     ? quizData.companions[0]
     : quizData.companions;
   return (
+    
     <main className="flex justify-center w-full flex-col items-center">
-      <h1>Quiz Report</h1>
+      <div className="flex justify-between items-center w-full">
+        <h1>Quiz Report</h1>
+        <DownloadPDFButton quizData={quizData} />
+      </div>
       <section className="h-full w-full flex flex-col gap-6">
         <div className="flex w-full h-auto items-center justify-between">
           <h2 className="text-3xl font-bold">Topic: {companion.topic}</h2>
