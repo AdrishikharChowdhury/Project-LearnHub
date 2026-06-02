@@ -8,7 +8,7 @@ const Page = async () => {
   const recentSessionsCompanions=await getRecentSessions(10)
   return (
     <main>
-      <h1>Popular Companions</h1>
+      <h1 className="text-2xl sm:text-3xl">Popular Companions</h1>
       <section className="home-section overflow-scroll no-scrollbar justify-start">
         {companions.length > 0
           ? companions.map((companion, idx: number) => (

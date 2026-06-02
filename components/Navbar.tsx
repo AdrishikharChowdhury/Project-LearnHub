@@ -8,17 +8,19 @@ const Navbar = ({ isQuiz }: { isQuiz: boolean }) => {
     <nav className="navbar">
       <Link href="/">
         <div className="flex items-center gap-2.5 cursor-pointer">
-          <Image src="/images/logo.svg" alt="logo" width={56} height={54} />
+          <Image src="/images/logo.svg" alt="logo" width={56} height={54} className="size-10 sm:size-[56px]" />
         </div>
       </Link>
-      <div className="flex items-center gap-8">
+      <div className="flex items-center gap-4 sm:gap-8">
         <NavItems isQuiz={isQuiz} />
-        <Show when="signed-out">
-          <button className="btn-signin">Sign in</button>
-        </Show>
-        <Show when="signed-in">
-          <UserButton />
-        </Show>
+        <div className="flex items-center gap-2 sm:gap-4">
+          <Show when="signed-out">
+            <button className="btn-signin text-xs sm:text-sm px-3 sm:px-4">Sign in</button>
+          </Show>
+          <Show when="signed-in">
+            <UserButton />
+          </Show>
+        </div>
       </div>
     </nav>
   );

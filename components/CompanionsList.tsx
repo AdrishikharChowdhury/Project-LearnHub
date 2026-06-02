@@ -24,13 +24,13 @@ const CompanionsList = ({
 }: CompanionListProps) => {
   return (
     <article className={cn("companion-list", classNames)}>
-      <h2 className="text-3xl font-semibold">{title}</h2>
+      <h2 className="text-xl sm:text-3xl font-semibold max-[400px]:text-lg">{title}</h2>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-lg w-2/3">Lessons</TableHead>
-            <TableHead className="text-lg">Subject</TableHead>
-            <TableHead className="text-lg text-right">Duration</TableHead>
+            <TableHead className="text-xs sm:text-lg w-2/3 max-[400px]:text-[11px]">Lessons</TableHead>
+            <TableHead className="text-xs sm:text-lg max-[400px]:text-[11px]">Subject</TableHead>
+            <TableHead className="text-xs sm:text-lg text-right max-[400px]:text-[11px]">Duration</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -52,9 +52,9 @@ const CompanionsList = ({
                         height={35}
                       />
                     </div>
-                    <div className="flex flex-col gap-2">
-                      <p className="font-bold text-2xl">{companion.name}</p>
-                      <p className="text-lg">{companion.topic}</p>
+                    <div className="flex flex-col gap-1 sm:gap-2">
+                      <p className="font-bold text-base sm:text-2xl max-[400px]:text-sm">{companion.name}</p>
+                      <p className="text-xs sm:text-lg max-[400px]:text-[11px]">{companion.topic}</p>
                     </div>
                   </div>
                 </Link>
@@ -79,7 +79,8 @@ const CompanionsList = ({
               </TableCell>
               <TableCell>
                 <div className="flex items-center gap-2 w-full justify-end">
-                    <p>{companion.duration} <span className="mx-md:hidden">mins</span></p>
+                    <span className="max-md:hidden">{companion.duration} mins</span>
+                    <span className="md:hidden">{companion.duration}m</span>
                     <Image src={`/icons/clock.svg`} alt="minutes" className="md:hidden" width={14} height={14} />
                 </div>
               </TableCell>
