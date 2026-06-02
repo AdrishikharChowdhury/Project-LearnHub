@@ -25,7 +25,7 @@ const QuizList = async () => {
         My Quizzes ({quizzes.length})
       </AccordionTrigger>
       <AccordionContent>
-        <section className="home-section flex-col overflow-scroll justify-start bg-white p-5 border-2 border-black rounded-4xl">
+        <section className="home-section flex overflow-scroll justify-start bg-white p-5 border-2 border-black rounded-4xl">
           {quizzes.map((quiz, idx) => (
             <Link key={idx} href={`/my-journey/report/${quiz.id}`} className="no-underline!">
               <div

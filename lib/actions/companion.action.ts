@@ -181,6 +181,17 @@ export const quizPermission = async () => {
   }
 };
 
+export const progressReportPermission = async () => {
+  const { has } = await auth();
+  if (has({ plan: "champion" })) {
+    return true;
+  } else if (has({ feature: "monthly_progress_reports" })) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 export const newCompanionPermission = async () => {
   const { userId, has } = await auth();
   const supabase = createSupabaseClient();
