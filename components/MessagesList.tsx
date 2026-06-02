@@ -24,21 +24,26 @@ const MessagesList = async () => {
             Conversation History ({messagesHistories.length})
           </AccordionTrigger>
           <AccordionContent>
-            <section className="home-section flex-col overflow-scroll justify-start bg-white p-5 border-2 border-black rounded-4xl">
-              <h1>Conversation History</h1>
-              <div className="flex gap-4">
-                {messagesHistories
-                  .reverse()
-                  .map((messageHistory, idx: number) => (
-                    <SessionCard
-                      key={idx}
-                      companion_id={messageHistory.companion_id}
-                      id={messageHistory.id}
-                      created_at={messageHistory.created_at}
-                    />
-                  ))}
-              </div>
-            </section>
+            {messagesHistories.length === 0 ? (
+              <p className="text-muted-foreground text-center py-8 bg-white border border-black rounded-3xl">
+                No conversation history found. Start talking to your companions.
+              </p>
+            ) : (
+              <section className="flex flex-col gap-4 bg-white p-6 border border-black rounded-2xl w-full">
+                <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
+                  {messagesHistories
+                    .reverse()
+                    .map((messageHistory, idx: number) => (
+                      <SessionCard
+                        key={idx}
+                        companion_id={messageHistory.companion_id}
+                        id={messageHistory.id}
+                        created_at={messageHistory.created_at}
+                      />
+                    ))}
+                </div>
+              </section>
+            )}
           </AccordionContent>
         </AccordionItem>
       )}

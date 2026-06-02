@@ -19,33 +19,37 @@ const page = async ({ params }: MessageSessionPageProps) => {
 
   return (
     isMessageHistory && (
-      <main className="h-[90vh] overflow-y-scroll">
+      <main className="h-[80vh] sm:h-[85vh] overflow-y-auto px-4 sm:px-6 py-6 w-full max-w-3xl mx-auto flex flex-col gap-4 no-scrollbar">
         {messages.messages.map((message: SavedMessage, idx: number) => (
           <div
             key={idx}
-            className={`max-w-1/2 w-fit text-white flex flex-col gap-2 ${message.role === "user" ? "self-end" : ""} `}
+            className={`max-w-[85%] sm:max-w-[70%] w-fit flex flex-col gap-1.5 ${message.role === "user" ? "self-end" : "self-start"} `}
           >
             <div
-              className={`flex gap-2 ${message.role === "user" ? "flex-row-reverse mr-4" : "ml-4"} items-center `}
+              className={`flex gap-2 ${message.role === "user" ? "flex-row-reverse mr-1" : "ml-1"} items-center `}
             >
               {message.role === "user" ? (
                 <Image
                   alt="avatar"
                   src={user.imageUrl}
-                  width={40}
-                  height={15}
-                  className="rounded-full"
+                  width={32}
+                  height={32}
+                  className="rounded-full border border-black/20"
                 />
               ) : (
                 ""
               )}
-              <p className="font-extrabold text-black capitalize ">
-                {message.role === "user" ? user.firstName! : message.role}
+              <p className="font-bold text-sm text-neutral-800 capitalize">
+                {message.role === "user" ? (user.firstName || "User") : message.role}
               </p>
             </div>
 
             <p
-              className={`bg-primary/90 py-5 px-6 rounded-2xl text-lg ${message.role === "user" ? "text-right self-end" : ""}`}
+              className={`py-3 px-4 sm:py-3.5 sm:px-5 rounded-2xl text-sm sm:text-base leading-relaxed ${
+                message.role === "user"
+                  ? "bg-primary text-white rounded-tr-none self-end"
+                  : "bg-white text-black border border-black rounded-tl-none"
+              }`}
             >
               {message.content}
             </p>

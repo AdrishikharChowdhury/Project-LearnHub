@@ -27,9 +27,9 @@ const Profile = async () => {
   const sessionHistory = await getUserSessions(user.id);
   
   return (
-    <main className="lg:w-3/4">
-      <section className="flex justify-between gap-4 max-sm:flex-col items-center">
-        <div className="flex gap-4 items-center">
+    <main className="w-full lg:w-3/4 mx-auto">
+      <section className="flex flex-col md:flex-row justify-between items-center md:items-start gap-6 border-b pb-6">
+        <div className="flex flex-col sm:flex-row gap-4 items-center text-center sm:text-left">
           <Image
             src={user.imageUrl}
             alt="image"
@@ -37,7 +37,7 @@ const Profile = async () => {
             height={110}
             className="rounded-lg"
           />
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1">
             <h1 className="font-bold text-2xl">
               {user.firstName} {user.lastName}
             </h1>
@@ -46,29 +46,29 @@ const Profile = async () => {
             </p>
           </div>
         </div>
-        <div className="flex gap-4">
-          <div className="border border-black rounded-lg p-3 gap-2 flex flex-col h-fit">
-            <div className="flex gap-2 items-center">
-              <Image
-                src="/icons/check.svg"
-                alt="checkmark"
-                width={22}
-                height={22}
-              />
-              <p className="text-2xl font-bold">{sessionHistory.length}</p>
-              <p>Lessons Completed</p>
+        <div className="flex flex-wrap justify-center sm:justify-end gap-4 w-full md:w-auto">
+          <div className="border border-black rounded-xl p-3 px-4 flex items-center gap-3 bg-white shadow-sm min-w-[180px]">
+            <Image
+              src="/icons/check.svg"
+              alt="checkmark"
+              width={22}
+              height={22}
+            />
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold leading-none">{sessionHistory.length}</span>
+              <span className="text-xs text-muted-foreground mt-1">Lessons Completed</span>
             </div>
           </div>
-          <div className="border border-black rounded-lg p-3 gap-2 flex flex-col h-fit">
-            <div className="flex gap-2 items-center">
-              <Image
-                src="/icons/cap.svg"
-                alt="checkmark"
-                width={22}
-                height={22}
-              />
-              <p className="text-2xl font-bold">{companions.length}</p>
-              <p>Companions Created</p>
+          <div className="border border-black rounded-xl p-3 px-4 flex items-center gap-3 bg-white shadow-sm min-w-[180px]">
+            <Image
+              src="/icons/cap.svg"
+              alt="checkmark"
+              width={22}
+              height={22}
+            />
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold leading-none">{companions.length}</span>
+              <span className="text-xs text-muted-foreground mt-1">Companions Created</span>
             </div>
           </div>
         </div>

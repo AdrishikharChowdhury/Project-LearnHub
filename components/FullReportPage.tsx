@@ -16,7 +16,7 @@ const FullReportPage = ({ report }: FullReportPageProps) => {
 
   return (
     <main className="flex flex-col gap-8">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold">{report.month.label}</h1>
           <p className="text-muted-foreground">
@@ -40,13 +40,13 @@ const FullReportPage = ({ report }: FullReportPageProps) => {
 
       <ScoreLineChart trend={report.quizStats.trend} />
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <SessionsBarChart data={report.companionStats} />
         <SubjectPieChart data={report.subjectBreakdown} />
       </div>
 
       {report.companionStats.length > 0 && (
-        <div className="border-2 rounded-2xl p-5">
+        <div className="border border-black bg-white rounded-2xl p-5 shadow-sm">
           <h3 className="text-xl font-bold mb-4">Companion Details</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-left">

@@ -25,25 +25,35 @@ const QuizList = async () => {
         My Quizzes ({quizzes.length})
       </AccordionTrigger>
       <AccordionContent>
-        <section className="home-section flex overflow-scroll justify-start bg-white p-5 border-2 border-black rounded-4xl">
-          {quizzes.map((quiz, idx) => (
-            <Link key={idx} href={`/my-journey/report/${quiz.id}`} className="no-underline!">
-              <div
-                className="h-full w-80 rounded-4xl border-2 bg-yellow-400 p-5 flex flex-col justify-between"
-                style={{
-                  backgroundColor: getSubjectColor(quiz.companions.subject),
-                }}
-              >
-                <h2 className="text-sm font-light" >Quiz on,</h2>
-                <h2 className="text-2xl font-bold">{quiz.companions?.topic}</h2>
-                <p className="subject-badge w-fit">{quiz.companions?.subject}</p>
-                <p className="text-sm mt-2">
-                  <b>Submitted At:</b> {formatTimestamp(quiz.created_at)}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </section>
+        {quizzes.length === 0 ? (
+          <p className="text-muted-foreground text-center py-8 bg-white border border-black rounded-3xl">
+            No quizzes taken yet. Start a quiz session to see your progress.
+          </p>
+        ) : (
+          <section className="flex gap-4 overflow-x-auto no-scrollbar bg-white p-6 border border-black rounded-2xl w-full">
+            {quizzes.map((quiz, idx) => (
+              <Link key={idx} href={`/my-journey/report/${quiz.id}`} className="no-underline! shrink-0">
+                <div
+                  className="h-full w-80 rounded-2xl border border-black p-5 flex flex-col justify-between hover:shadow-md transition-shadow"
+                  style={{
+                    backgroundColor: getSubjectColor(quiz.companions.subject),
+                  }}
+                >
+                  <div className="flex flex-col gap-1">
+                    <span className="text-xs font-medium uppercase tracking-wider text-black/60">Quiz on</span>
+                    <h2 className="text-2xl font-bold truncate text-black">{quiz.companions?.topic}</h2>
+                  </div>
+                  <div className="mt-6 flex flex-col gap-2">
+                    <span className="subject-badge w-fit">{quiz.companions?.subject}</span>
+                    <p className="text-xs text-black/70">
+                      <b>Submitted:</b> {formatTimestamp(quiz.created_at)}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </section>
+        )}
       </AccordionContent>
     </AccordionItem>
     )}

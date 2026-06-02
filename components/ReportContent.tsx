@@ -22,16 +22,16 @@ const ReportContent = ({ quizData, cooldownEnd }: ReportContentProps) => {
   return (
     
     <main className="flex justify-center w-full flex-col items-center">
-      <div className="flex justify-between items-center w-full">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-4">
         <h1>Quiz Report</h1>
         <DownloadPDFButton quizData={quizData} />
       </div>
-      <section className="h-full w-full flex flex-col gap-6">
-        <div className="flex w-full h-auto items-center justify-between">
-          <h2 className="text-3xl font-bold">Topic: {companion.topic}</h2>
-          <div className="h-full flex justify-center items-center gap-4">
+      <section className="h-full w-full flex flex-col gap-6 mt-4">
+        <div className="flex flex-col md:flex-row w-full h-auto items-start md:items-center justify-between gap-4">
+          <h2 className="text-2xl sm:text-3xl font-bold">Topic: {companion.topic}</h2>
+          <div className="flex flex-wrap items-center gap-4">
             <p className="subject-badge">{companion.subject}</p>
-            <p className="text-sm mt-2 flex items-center justify-center gap-2 mb-2">
+            <p className="text-sm flex items-center gap-2">
               <b>Submitted At: </b>{" "}
               <span>{formatTimestamp(quizData.created_at)}</span>
             </p>
@@ -41,12 +41,12 @@ const ReportContent = ({ quizData, cooldownEnd }: ReportContentProps) => {
         <div className="w-full h-full flex flex-col gap-6">
           {quizData.questions.map((question, idx: number) => (
             <div key={idx} className="flex w-full flex-col gap-4">
-              <p className="text-2xl font-extrabold w-full flex gap-4 items-center">
-                <span>
+              <p className="text-xl sm:text-2xl font-extrabold w-full flex gap-3 items-start">
+                <span className="flex-shrink-0 mt-1">
                   {question.my_answer === question.correctAnswer ? (
-                    <CheckCheck className="text-green-500 size-10" />
+                    <CheckCheck className="text-green-500 size-7 sm:size-8" />
                   ) : (
-                    <X className="text-red-500 size-10" />
+                    <X className="text-red-500 size-7 sm:size-8" />
                   )}
                 </span>
                 <span>
@@ -56,26 +56,33 @@ const ReportContent = ({ quizData, cooldownEnd }: ReportContentProps) => {
               <ol className="flex flex-col gap-2 w-full">
                 {question.options.map((option, optidx: number) => (
                   <li
-                    className={`text-xl py-4 border-2 pl-4 rounded-2xl ml-4 w-max min-w-1/2 flex gap-4 ${optidx === question.correctAnswer ? "bg-green-500 text-white" : optidx === question.my_answer && "bg-red-500 text-white"}`}
+                    className={`text-base sm:text-lg py-3 px-4 border border-black rounded-xl ml-0 sm:ml-4 w-full flex gap-3 ${
+                      optidx === question.correctAnswer
+                        ? "bg-green-500 border-green-500 text-white"
+                        : optidx === question.my_answer
+                        ? "bg-red-500 border-red-500 text-white"
+                        : "bg-white text-black"
+                    }`}
                     key={optidx}
                   >
-                    <span>{alphaOptions[optidx]}</span> <span>{option}</span>
+                    <span className="font-bold flex-shrink-0">{alphaOptions[optidx]}</span>
+                    <span>{option}</span>
                   </li>
                 ))}
               </ol>
-              <p className="text-xl py-6 border-2 px-4 ml-4 rounded-2xl w-fit bg-black text-white">
-                Explanation: {question.explanation}
+              <p className="text-sm sm:text-base py-4 px-5 border border-black ml-0 sm:ml-4 rounded-xl w-full bg-black text-white leading-relaxed">
+                <b>Explanation:</b> {question.explanation}
               </p>
             </div>
           ))}
         </div>
         <hr />
-        <div className="flex justify-between">
-          <h2 className="text-2xl flex gap-4">
+        <div className="flex flex-col sm:flex-row justify-between gap-4 mt-2">
+          <h2 className="text-xl sm:text-2xl flex gap-2 justify-between sm:justify-start">
             <span className="font-extrabold">Correct Answers:</span>{" "}
             <span className="font-extralight">{quizData.correct_answers}</span>
           </h2>
-          <h2 className="text-2xl flex gap-4">
+          <h2 className="text-xl sm:text-2xl flex gap-2 justify-between sm:justify-start">
             <span className="font-extrabold">Percentage Obtained:</span>
             <span className="font-extralight">{quizData.score}%</span>
           </h2>
