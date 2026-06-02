@@ -1,5 +1,6 @@
 import CompanionsList from "@/components/CompanionsList";
 import MessagesList from "@/components/MessagesList";
+import MonthlyReportsList from "@/components/MonthlyReportsList";
 import QuizList from "@/components/QuizList";
 import SessionCard from "@/components/SessionCard";
 import {
@@ -72,7 +73,7 @@ const Profile = async () => {
           </div>
         </div>
       </section>
-      <Accordion defaultValue={["recent", "companions", "history","quizzes"]}>
+      <Accordion defaultValue={["recent", "companions", "history","quizzes", "reports"]}>
         <AccordionItem value="recent">
           <AccordionTrigger className="text-2xl font-bold">
             Recent Sessions
@@ -94,6 +95,7 @@ const Profile = async () => {
         </AccordionItem>
         <MessagesList />
         <QuizList />
+        <MonthlyReportsList />
       </Accordion>
     </main>
   );
