@@ -16,8 +16,11 @@ const QuizReport = async ({ params }: QuizPageProps) => {
   const user = await currentUser();
   if (!user) redirect("/sign-in");
   const quizData:QuizAttempt = await getAllQuizAnswers(user.id, id);
+  const cooldownEnd = quizData?.created_at
+    ? new Date(new Date(quizData.created_at).getTime() + 24 * 60 * 60 * 1000).toISOString()
+    : undefined;
   return (
-    <ReportContent quizData={quizData} />
+    <ReportContent quizData={quizData} cooldownEnd={cooldownEnd} />
   );
 };
 

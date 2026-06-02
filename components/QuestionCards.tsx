@@ -2,13 +2,15 @@
 
 import { saveQuizAttempt } from "@/lib/actions/quiz.action";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
-import { useState } from "react";
+import { redirect } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 interface QuestionCardsProps {
   questions: QuizQuestion[];
   companionId:string
 }
+
+const TIMER_MINUTES = 10;
 
 const QuestionCards = ({ questions,companionId }: QuestionCardsProps) => {
   const [questionNo, setQuestionNo] = useState(0);
@@ -16,7 +18,40 @@ const QuestionCards = ({ questions,companionId }: QuestionCardsProps) => {
   const [questionsState, setQuestionsState] = useState(
     questions.map((q) => ({ ...q, my_answer: 0 })),
   );
-  const router = useRouter();
+  const [timeLeft, setTimeLeft] = useState(TIMER_MINUTES * 60);
+  const submittedRef = useRef(false);
+
+  const submitQuiz = async (finalState: typeof questionsState) => {
+    if (submittedRef.current) return;
+    submittedRef.current = true;
+    const correctAnswers = finalState.filter(
+      (q) => q.correctAnswer === q.my_answer,
+    );
+    const score = Math.round((correctAnswers.length / questions.length) * 100);
+    await saveQuizAttempt(
+      companionId,
+      finalState,
+      score,
+      questions.length,
+      correctAnswers.length,
+    );
+    redirect("/my-journey");
+  };
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      submitQuiz(questionsState);
+      return;
+    }
+    const id = setInterval(() => setTimeLeft((t) => t - 1), 1000);
+    return () => clearInterval(id);
+  }, [timeLeft]);
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  };
 
   const nextQuestion = () => {
     setQuestionNo((q) => q + 1);
@@ -30,24 +65,14 @@ const QuestionCards = ({ questions,companionId }: QuestionCardsProps) => {
   const prevQuestion = () => {
     setQuestionNo((q) => q - 1);
   };
-  const onSubmit = async () => {
-    const correctAnswers = questionsState.filter(
-      (q) => q.correctAnswer === q.my_answer,
-    );
-    const score = Math.round((correctAnswers.length / questions.length) * 100);
-    await saveQuizAttempt(
-      companionId,
-      questionsState,
-      score,
-      questions.length,
-      correctAnswers.length,
-    );
-    redirect("/my-journey")
-  };
+  const onSubmit = () => submitQuiz(questionsState);
   return (
     <div className="flex flex-col w-full min-h-1/2 justify-between border-2 shadow-xl gap-4">
-      <div className="w-full p-5 bg-primary text-white font-bold text-2xl">
-        Question: {questionNo + 1}/{questions.length}
+      <div className="w-full p-5 bg-primary text-white font-bold text-2xl flex justify-between items-center">
+        <span>Question: {questionNo + 1}/{questions.length}</span>
+        <span className={`font-mono ${timeLeft <= 60 ? "text-red-300 animate-pulse" : ""}`}>
+          {formatTime(timeLeft)}
+        </span>
       </div>
       <div className="px-16 shrink-0 flex flex-col gap-6">
         <p className="text-3xl font-extrabold">

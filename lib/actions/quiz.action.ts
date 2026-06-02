@@ -7,11 +7,40 @@ import { createSupabaseClient } from "../supabase";
 import { getAssistantMessages } from "../utils";
 import { redirect } from "next/navigation";
 
+const COOLDOWN_MS = 24 * 60 * 60 * 1000;
+
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
+export const getCooldownRemaining = async (companionId: string) => {
+  const { userId } = await auth();
+  if (!userId) return 0;
+
+  const supabase = createSupabaseClient();
+  const { data } = await supabase
+    .from("quiz_attempts")
+    .select("created_at")
+    .eq("companion_id", companionId)
+    .eq("author", userId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .single();
+
+  if (!data) return 0;
+
+  const elapsed = Date.now() - new Date(data.created_at).getTime();
+  return Math.max(0, COOLDOWN_MS - elapsed);
+};
 
 export const generateQuiz = async (companionId: string) => {
   const { userId } = await auth();
   if (!userId) throw new Error("User Not Found");
+
+  const remaining = await getCooldownRemaining(companionId);
+  if (remaining > 0) {
+    throw new Error(
+      `Cooldown active. Try again in ${Math.ceil(remaining / 1000)}s`,
+    );
+  }
   const supabase = createSupabaseClient();
   const { data: sessions, error: sessionsError } = await supabase
     .from("session_messages")
