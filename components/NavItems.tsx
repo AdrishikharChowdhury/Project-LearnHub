@@ -4,43 +4,37 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-interface navItems {
-  label: string;
-  href: string;
+interface NavItemsProps {
+  isQuiz: boolean;
 }
 
-const navItems: navItems[] = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "Companions",
-    href: "/companions",
-  },
-  {
-    label: "Quizzes",
-    href:"/quiz"
-  },
-  {
-    label: "My Journey",
-    href: "/my-journey",
-  }
-];
-
-const NavItems = () => {
+const NavItems = ({ isQuiz }: NavItemsProps) => {
   const pathname = usePathname();
+
+  const items = isQuiz
+    ? [
+        { label: "Home", href: "/" },
+        { label: "Companions", href: "/companions" },
+        { label: "Quizzes", href: "/quiz" },
+        { label: "My Journey", href: "/my-journey" },
+      ]
+    : [
+        { label: "Home", href: "/" },
+        { label: "Companions", href: "/companions" },
+        { label: "My Journey", href: "/my-journey" },
+      ];
+
   return (
     <div className="flex items-center gap-4">
-      {navItems.map((navItem: navItems, idx: number) => (
+      {items.map((item, idx) => (
         <Link
-          href={navItem.href}
+          href={item.href}
           key={idx}
           className={cn(
-            pathname === navItem.href && "text-primary font-semibold",
+            pathname === item.href && "text-primary font-semibold",
           )}
         >
-          {navItem.label}
+          {item.label}
         </Link>
       ))}
     </div>

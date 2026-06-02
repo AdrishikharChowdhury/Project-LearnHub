@@ -8,15 +8,19 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { formatTimestamp, getSubjectColor } from "@/lib/utils";
+import { quizPermission } from "@/lib/actions/companion.action";
 
 const QuizList = async () => {
   const user = await currentUser();
   if (!user) redirect("/sign-in");
+  const isQuiz=await quizPermission()
 
   const quizzes = await getAllQuizSessions(user.id);
 
   return (
-    <AccordionItem value="companions">
+    <>
+    {isQuiz && (
+    <AccordionItem value="quizzes">
       <AccordionTrigger className="text-2xl font-bold">
         My Quizzes ({quizzes.length})
       </AccordionTrigger>
@@ -42,6 +46,8 @@ const QuizList = async () => {
         </section>
       </AccordionContent>
     </AccordionItem>
+    )}
+    </>
   );
 };
 
