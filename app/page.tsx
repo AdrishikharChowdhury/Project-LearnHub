@@ -1,7 +1,6 @@
 import CompanionCard from "@/components/CompanionCard";
 import CompanionsList from "@/components/CompanionsList";
 import CTA from "@/components/CTA";
-import { recentSessions } from "@/constants";
 import { getAllCompanions, getRecentSessions, getUserSessions } from "@/lib/actions/companion.action";
 
 const Page = async () => {
@@ -15,9 +14,7 @@ const Page = async () => {
           ? companions.map((companion, idx: number) => (
               <CompanionCard key={idx} {...companion} />
             ))
-          : recentSessions.map((companion, idx: number) => (
-              <CompanionCard key={idx} {...companion} />
-            ))}
+          : <p className="ml-2 font-extralight text-gray-500">No Companions Have been created Yet</p>}
       </section>
       <section className="home-section">
         <CompanionsList

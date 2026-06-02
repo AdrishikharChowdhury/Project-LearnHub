@@ -72,7 +72,7 @@ const Profile = async () => {
           </div>
         </div>
       </section>
-      <Accordion defaultValue={["recent", "companions", "history"]}>
+      <Accordion defaultValue={["recent", "companions", "history","quizzes"]}>
         <AccordionItem value="recent">
           <AccordionTrigger className="text-2xl font-bold">
             Recent Sessions

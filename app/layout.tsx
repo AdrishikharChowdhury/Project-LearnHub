@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { quizPermission } from "@/lib/actions/companion.action";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -15,17 +16,19 @@ export const metadata: Metadata = {
   description: "Study with your personal real-time AI companion",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isQuiz = await quizPermission();
+
   return (
     <html lang="en">
       <body className={`${bricolage.variable} antialiased flex flex-col min-h-screen`}>
         <ClerkProvider appearance={{ variables: { colorPrimary: "#fe5933" } }}>
-          <Navbar />
-          <div className="flex-grow flex flex-col">
+          <Navbar isQuiz={isQuiz} />
+          <div className="grow flex flex-col">
             {children}
           </div>
           <Footer />

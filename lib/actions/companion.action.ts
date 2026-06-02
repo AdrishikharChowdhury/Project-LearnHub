@@ -65,7 +65,8 @@ export const getAllCompanions = async ({
   topic,
 }: GetAllCompanions) => {
   const supabase = createSupabaseClient();
-  let query = supabase.from("companions").select();
+  const { userId } = await auth();
+  let query = supabase.from("companions").select().eq("author",userId);
 
   if (subject && topic) {
     query = query
@@ -99,11 +100,13 @@ export const addToSessionHistory = async (companionId: string) => {
 
 export const getRecentSessions = async (limit = 10) => {
   const supabase = createSupabaseClient();
+  const { userId } = await auth();
   const { data, error } = await supabase
     .from("session_history")
     .select(`companions:companion_id(*)`)
     .order("created_at", { ascending: false })
-    .limit(limit);
+    .limit(limit)
+    .eq("user_id", userId);
 
   if (error) throw new Error(error.message);
   return data.map(({ companions }) => companions);
@@ -165,6 +168,19 @@ export const sessionHistoryPermission = async () => {
   }
 };
 
+export const quizPermission = async () => {
+  const { has } = await auth();
+  if (has({ plan: "champion" })) {
+    return true;
+  } else if (has({ feature: "inline_quizzes_recaps" })) {
+    return true;
+  } else if (has({ plan: "elite" })) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 export const newCompanionPermission = async () => {
   const { userId, has } = await auth();
   const supabase = createSupabaseClient();
@@ -198,13 +214,13 @@ export const newCompanionPermission = async () => {
 
 export const getCompanionSession = async (companionId: string) => {
   const supabase = createSupabaseClient();
-  const { userId }=await auth()
+  const { userId } = await auth();
   const { count, error } = await supabase
     .from("session_history")
     .select("id", { count: "exact", head: true })
     .eq("companion_id", companionId)
     .eq("user_id", userId);
 
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(error.message);
   return (count ?? 0) >= 5;
 };

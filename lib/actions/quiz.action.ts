@@ -118,8 +118,11 @@ export const getAllQuizSessions = async (userId: string) => {
   if (error) {
     throw new Error(error.message);
   }
-  
-  return data as unknown as QuizCard[];
+
+  return data.map((item: any) => ({
+    ...item,
+    companions: Array.isArray(item.companions) ? item.companions[0] : item.companions,
+  })) as QuizCard[];
 };
 
 export const getAllQuizAnswers = async (userId: string,id:string) => {

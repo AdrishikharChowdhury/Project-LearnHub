@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import NavItems from "./NavItems";
-import { SignInButton, SignUpButton, UserButton, Show } from "@clerk/nextjs";
+import { UserButton, Show } from "@clerk/nextjs";
 
-const Navbar = () => {
+const Navbar = ({ isQuiz }: { isQuiz: boolean }) => {
   return (
     <nav className="navbar">
       <Link href="/">
@@ -12,7 +12,7 @@ const Navbar = () => {
         </div>
       </Link>
       <div className="flex items-center gap-8">
-        <NavItems />
+        <NavItems isQuiz={isQuiz} />
         <Show when="signed-out">
           <button className="btn-signin">Sign in</button>
         </Show>

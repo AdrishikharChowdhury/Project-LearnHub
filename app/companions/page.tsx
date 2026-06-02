@@ -10,8 +10,8 @@ const CompanionsLibrary = async ({ searchParams }: SearchParams) => {
   const subject = filters.subject ? filters.subject : "";
   const companions = await getAllCompanions({ subject, topic });
   return (
-    <main>
-      <section className="flex justify-between gap-4 max-sm:flex-col">
+    <main className="w-full">
+      <section className="flex justify-between gap-4 max-sm:flex-col w-full">
         <h1>Companions Library</h1>
         <div className="flex gap-4">
           <SearchInput />
@@ -19,10 +19,10 @@ const CompanionsLibrary = async ({ searchParams }: SearchParams) => {
         </div>
       </section>
       <section className="companions-grid">
-        {companions.length > 0 &&
+        {companions.length > 0 ?
           companions.map((companion, idx: number) => (
             <CompanionCard key={idx} {...companion} color={getSubjectColor(companion.subject)} />
-          ))}
+          )):<p className="ml-2 font-extralight text-gray-500">No Companions Have been created Yet</p>}
       </section>
     </main>
   );
