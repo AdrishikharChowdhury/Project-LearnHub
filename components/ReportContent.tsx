@@ -12,9 +12,10 @@ const alphaOptions = ["(a)", "(b)", "(c)", "(d)"];
 
 interface ReportContentProps {
   quizData: QuizAttempt;
+  cooldownEnd?: string;
 }
 
-const ReportContent = ({ quizData }: ReportContentProps) => {
+const ReportContent = ({ quizData, cooldownEnd }: ReportContentProps) => {
   const companion = Array.isArray(quizData.companions)
     ? quizData.companions[0]
     : quizData.companions;
@@ -79,6 +80,14 @@ const ReportContent = ({ quizData }: ReportContentProps) => {
             <span className="font-extralight">{quizData.score}%</span>
           </h2>
         </div>
+        {cooldownEnd && (
+          <p className="text-center text-muted-foreground mt-8">
+            Next quiz available after{" "}
+            <span className="font-semibold">
+              {new Date(cooldownEnd).toLocaleString()}
+            </span>
+          </p>
+        )}
       </section>
     </main>
   );
