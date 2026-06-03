@@ -42,7 +42,7 @@ const SubjectFilter = () => {
     return () => clearTimeout(searchInterval);
   }, [subject]);
   return (
-    <Select value={subject} onValueChange={setsubject}>
+    <Select value={subject} onValueChange={(value) => setsubject(value ?? "")}>
       <SelectTrigger className="capitalize input">
         <SelectValue placeholder="Choose Subject" className="input" />
       </SelectTrigger>
