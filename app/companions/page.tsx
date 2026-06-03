@@ -2,6 +2,7 @@ import CompanionCard from "@/components/CompanionCard";
 import SearchInput from "@/components/SearchInput";
 import SubjectFilter from "@/components/SubjectFilter";
 import { getAllCompanions } from "@/lib/actions/companion.action";
+import Link from "next/link";
 
 const CompanionsLibrary = async ({ searchParams }: SearchParams) => {
   const filters = await searchParams;
@@ -12,7 +13,15 @@ const CompanionsLibrary = async ({ searchParams }: SearchParams) => {
     <main className="w-full">
       <section className="flex justify-between gap-4 max-sm:flex-col w-full">
         <h1>Companions Library</h1>
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-center max-sm:flex-col">
+          <div className="flex gap-2">
+            <Link href="/companions/new" className="btn-primary text-sm whitespace-nowrap">
+              Create Companion
+            </Link>
+            <Link href="/subjects/new" className="btn-primary text-sm whitespace-nowrap">
+              + Add Subject
+            </Link>
+          </div>
           <SearchInput />
           <SubjectFilter />
         </div>

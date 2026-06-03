@@ -17,6 +17,11 @@ interface QuizCard {
     subject: string;
   };
   created_at: string;
+  subjectData?: {
+    icon_url: string;
+    color: string;
+    display_name: string;
+  } | null;
 }
 
 interface QuizAttempt {

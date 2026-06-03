@@ -31,7 +31,7 @@ const QuizList = async () => {
           </p>
         ) : (
           <section className="flex gap-4 overflow-x-auto no-scrollbar bg-white p-6 border border-black rounded-2xl w-full">
-            {quizzes.map((quiz, idx) => (
+            {quizzes.reverse().map((quiz, idx) => (
               <Link key={idx} href={`/my-journey/report/${quiz.id}`} className="no-underline! shrink-0">
                 <div
                   className="h-full w-80 rounded-2xl border border-black p-5 flex flex-col justify-between hover:shadow-md transition-shadow"

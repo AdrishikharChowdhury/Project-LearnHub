@@ -25,6 +25,7 @@ import { Textarea } from "./ui/textarea";
 import { createCompanion } from "@/lib/actions/companion.action";
 import { getSubjects, type SubjectData } from "@/lib/actions/subject.action";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Companion is Required" }),
@@ -115,6 +116,9 @@ const CompanionForm = () => {
                   ))}
                 </SelectContent>
               </Select>
+              <Link href="/subjects/new" className="block text-xs text-center mt-1 text-primary underline">
+                + Add New Subject
+              </Link>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}

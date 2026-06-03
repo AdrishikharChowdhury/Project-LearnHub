@@ -68,19 +68,19 @@ const QuestionCards = ({ questions,companionId }: QuestionCardsProps) => {
   const onSubmit = () => submitQuiz(questionsState);
   return (
     <div className="flex flex-col w-full min-h-1/2 justify-between border-2 shadow-xl gap-4">
-      <div className="w-full p-5 bg-primary text-white font-bold text-2xl flex justify-between items-center">
+      <div className="w-full p-3 sm:p-5 bg-primary text-white font-bold text-base sm:text-xl lg:text-2xl flex justify-between items-center">
         <span>Question: {questionNo + 1}/{questions.length}</span>
         <span className={`font-mono ${timeLeft <= 60 ? "text-red-300 animate-pulse" : ""}`}>
           {formatTime(timeLeft)}
         </span>
       </div>
-      <div className="px-16 shrink-0 flex flex-col gap-6">
-        <p className="text-3xl font-extrabold">
+      <div className="px-4 sm:px-8 md:px-16 shrink-0 flex flex-col gap-4 sm:gap-6">
+        <p className="text-lg sm:text-2xl lg:text-3xl font-extrabold">
           {questions[questionNo].question}
         </p>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3 sm:gap-4">
           {questions[questionNo].options.map((option, optidx: number) => (
-            <p className="text-xl flex gap-3 items-center" key={optidx}>
+            <p className="text-sm sm:text-lg lg:text-xl flex gap-2 sm:gap-3 items-center" key={optidx}>
               <span className="w-10">
                 {questionNo + 1}.{optidx + 1}.
               </span>
@@ -96,26 +96,26 @@ const QuestionCards = ({ questions,companionId }: QuestionCardsProps) => {
             </p>
           ))}
         </div>
-        <button onClick={() => setSelected("")} className="self-end">
+        <button onClick={() => setSelected("")} className="self-end text-sm sm:text-base">
           Clear Selection
         </button>
       </div>
-      <div className="text-white w-full p-5 bg-primary flex justify-center items-center gap-6 text-lg">
+      <div className="text-white w-full p-3 sm:p-5 bg-primary flex justify-center items-center gap-3 sm:gap-6 text-sm sm:text-lg">
         <button
-          className={`w-1/6 text-center btn-disabled flex justify-center ${questionNo === 0 && "hidden"} `}
+          className={`w-1/3 sm:w-1/6 text-center btn-disabled flex justify-center ${questionNo === 0 && "hidden"} `}
           onClick={prevQuestion}
         >
           <ArrowLeft /> Previous
         </button>
         <button
           onClick={onSubmit}
-          className={`w-1/6 text-center btn-disabled flex justify-center ${questionNo !== questions.length - 1 && "hidden"} `}
+          className={`w-1/3 sm:w-1/6 text-center btn-disabled flex justify-center ${questionNo !== questions.length - 1 && "hidden"} `}
         >
           Submit
         </button>
         <button
           onClick={nextQuestion}
-          className={`w-1/6 text-center btn-disabled flex justify-center ${questionNo === questions.length - 1 && "hidden"} `}
+          className={`w-1/3 sm:w-1/6 text-center btn-disabled flex justify-center ${questionNo === questions.length - 1 && "hidden"} `}
         >
           Next <ArrowRight />
         </button>

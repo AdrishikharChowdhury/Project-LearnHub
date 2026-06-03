@@ -148,10 +148,21 @@ export const getAllQuizSessions = async (userId: string) => {
     throw new Error(error.message);
   }
 
-  return data.map((item: any) => ({
+  const quizzes = data.map((item: any) => ({
     ...item,
     companions: Array.isArray(item.companions) ? item.companions[0] : item.companions,
   })) as QuizCard[];
+
+  const { data: subjects } = await supabase
+    .from("subjects")
+    .select("name, icon_url, color, display_name");
+
+  const subjectMap = new Map(subjects?.map(s => [s.name, s]) || []);
+
+  return quizzes.map(q => ({
+    ...q,
+    subjectData: subjectMap.get(q.companions?.subject) || null,
+  }));
 };
 
 export const getAllQuizAnswers = async (userId: string,id:string) => {

@@ -1,7 +1,6 @@
 import { getCompanion } from "@/lib/actions/companion.action";
-import { formatTimestamp, getSubjectColor } from "@/lib/utils";
+import { formatTimestamp } from "@/lib/utils";
 import Link from "next/link";
-import React from "react";
 
 interface messageProps {
   companion_id: string;
@@ -18,7 +17,7 @@ const SessionCard = async ({ companion_id, id, created_at }: messageProps) => {
     >
       <div
         className="h-full w-80 rounded-xl border border-black p-5 flex flex-col justify-between hover:shadow-md transition-shadow"
-        style={{ backgroundColor: getSubjectColor(companion.subject) }}
+        style={{ backgroundColor: companion.subjectData?.color || "#E5D0FF" }}
       >
         <div className="flex flex-col gap-1">
           <h2 className="text-2xl font-bold truncate text-black">{companion.name}</h2>
