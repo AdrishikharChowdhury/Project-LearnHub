@@ -197,7 +197,7 @@ export const getMonthlyReport = async (
     avgScore: s.quizzes > 0 ? Math.round(s.totalScore / s.quizzes) : 0,
   }));
 
-  const companionStats = Array.from(companionMap.values()).map(({ totalScore, ...rest }) => rest);
+  const companionStats = Array.from(companionMap.values());
 
   const availableMonths = await getAvailableMonths();
   const monthInfo = availableMonths.find((m) => m.year === year && m.month === month);

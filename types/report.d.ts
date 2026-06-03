@@ -19,6 +19,7 @@ interface CompanionStat {
   sessions: number;
   quizAttempts: number;
   avgScore: number;
+  totalScore: number;
 }
 
 interface SubjectBreakdown {
@@ -26,6 +27,7 @@ interface SubjectBreakdown {
   sessions: number;
   quizzes: number;
   avgScore: number;
+  totalScore: number;
 }
 
 interface MonthlyReport {
