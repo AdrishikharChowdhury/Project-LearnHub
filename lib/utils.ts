@@ -2,7 +2,14 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { subjectsColors, voices } from "@/constants";
 import { CreateAssistantDTO } from "@vapi-ai/web/api";
+import { string } from "zod";
 // import { CreateAssistantDTO } from "@vapi-ai/web/dist/api";
+
+interface Conversation {
+  role: string;
+  content: string;
+}
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -55,13 +62,15 @@ export const configureAssistant = (voice: string, style: string) => {
         },
       ],
     },
-    clientMessages: [],
-    serverMessages: [],
+    clientMessages: [] as unknown as CreateAssistantDTO["clientMessages"],
+    serverMessages: [] as unknown as CreateAssistantDTO["serverMessages"],
   };
   return vapiAssistant;
 };
 
-export const mergeConsecutiveSameRoleMessages = (messages: SavedMessage[]): SavedMessage[] => {
+export const mergeConsecutiveSameRoleMessages = (
+  messages: SavedMessage[],
+): SavedMessage[] => {
   if (messages.length === 0) return [];
 
   const merged: SavedMessage[] = [];
@@ -77,7 +86,7 @@ export const mergeConsecutiveSameRoleMessages = (messages: SavedMessage[]): Save
       current = { ...next };
     }
   }
-  
+
   // Don't forget the last accumulated message
   merged.push(current);
   return merged;
@@ -85,7 +94,7 @@ export const mergeConsecutiveSameRoleMessages = (messages: SavedMessage[]): Save
 
 export const formatTimestamp = (
   timestamp: string | Date,
-  locale: string = "en-US"
+  locale: string = "en-US",
 ) => {
   const date = new Date(timestamp);
 
