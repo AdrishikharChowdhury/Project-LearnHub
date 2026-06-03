@@ -28,7 +28,7 @@ const Profile = async () => {
   
   return (
     <main className="w-full lg:w-3/4 mx-auto">
-      <section className="flex flex-col md:flex-row justify-between items-center md:items-start gap-6 border-b pb-6">
+      <section className="flex flex-col justify-between items-center  gap-6 border-b pb-4">
         <div className="flex flex-col sm:flex-row gap-4 items-center text-center sm:text-left">
           <Image
             src={user.imageUrl}
@@ -46,8 +46,8 @@ const Profile = async () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap justify-center sm:justify-end gap-4 w-full md:w-auto">
-          <div className="border border-black rounded-xl p-3 px-4 flex items-center gap-3 bg-white shadow-sm min-w-[180px]">
+        <div className="flex flex-wrap justify-center gap-4 w-full md:w-auto">
+          <div className="border border-black rounded-xl p-3 px-4 flex items-center gap-3 bg-white shadow-sm min-w-45">
             <Image
               src="/icons/check.svg"
               alt="checkmark"
@@ -59,7 +59,7 @@ const Profile = async () => {
               <span className="text-xs text-muted-foreground mt-1">Lessons Completed</span>
             </div>
           </div>
-          <div className="border border-black rounded-xl p-3 px-4 flex items-center gap-3 bg-white shadow-sm min-w-[180px]">
+          <div className="border border-black rounded-xl p-3 px-4 flex items-center gap-3 bg-white shadow-sm min-w-45">
             <Image
               src="/icons/cap.svg"
               alt="checkmark"
