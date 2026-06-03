@@ -22,7 +22,7 @@ const ReportSummaryCard = ({ month }: ReportSummaryCardProps) => {
       href={`/my-journey/report/monthly/${month.year}/${month.month}`}
       className="no-underline!"
     >
-      <div className="border border-black rounded-2xl p-5 flex flex-col gap-3 hover:shadow-md transition-shadow cursor-pointer bg-white">
+      <div className="border-[3px] border-black rounded p-5 flex flex-col gap-3 shadow-brutal hover:shadow-brutal-hover transition-shadow cursor-pointer bg-white">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
           <h3 className="text-xl font-bold">
             Monthly Report #{month.reportNumber}

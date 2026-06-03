@@ -41,7 +41,7 @@ const SearchInput = () => {
   }, [searchQuery]);
 
   return (
-    <div className="relative border boder-black rounded-lg items-center flex gap-2 px-2 py-1 h-fit">
+    <div className="relative border-[3px] border-black rounded items-center flex gap-2 px-2 py-1 h-fit bg-white shadow-brutal">
       <Image src="/icons/search.svg" alt="search" width={15} height={15} />
       <input
         type="text"

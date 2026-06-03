@@ -27,7 +27,7 @@ const SubjectPieChart = ({ data }: SubjectPieChartProps) => {
 
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-64 border-2 rounded-2xl text-muted-foreground">
+      <div className="flex items-center justify-center h-64 border-[3px] border-black rounded text-muted-foreground shadow-brutal">
         No subject data this month
       </div>
     );
@@ -41,8 +41,8 @@ const SubjectPieChart = ({ data }: SubjectPieChartProps) => {
   }));
 
   return (
-    <div ref={containerRef} className="border-2 rounded-2xl p-4">
-      <h3 className="text-lg font-bold mb-2">Subject Distribution</h3>
+    <div ref={containerRef} className="border-[3px] border-black rounded p-4 shadow-brutal">
+      <h3 className="text-lg font-extrabold mb-2">Subject Distribution</h3>
       <PieChart
         series={[{
           data: pieData,

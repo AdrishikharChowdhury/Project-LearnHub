@@ -172,8 +172,8 @@ const CompanionComponent = ({
           </button>
           <button
             className={cn(
-              "rounded-lg py-2 cursor-pointer transition-colors w-full text-white",
-              callStatus === CallStatus.ACTIVE ? "bg-red-700" : "bg-primary", callStatus===CallStatus.CONNECTING && 'animate-pulse'
+              "rounded py-2 cursor-pointer transition-all w-full text-white font-bold border-[3px] border-black",
+              callStatus === CallStatus.ACTIVE ? "bg-red-700 shadow-brutal" : "bg-primary shadow-brutal", callStatus===CallStatus.CONNECTING && 'animate-pulse'
             )} onClick={callStatus===CallStatus.ACTIVE?handleDisconnect:handleCall}
           >
             {callStatus === CallStatus.ACTIVE
@@ -188,12 +188,14 @@ const CompanionComponent = ({
         <div className="transcript-message no-scrollbar">
           {messages.map((message,idx:number)=>{
             if(message.role==='assistant'){
-              return (<p key={idx} className="max-sm:text-sm">
-                {name.split(' ')[0].replace('/[.,]/g, ','')}: {message.content}
-              </p>)
+              return (
+                <p key={idx} className="max-sm:text-sm border-[3px] border-black rounded p-4 bg-white shadow-brutal">
+                  <span className="font-bold">{name.split(" ")[0]}:</span> {message.content}
+                </p>
+              )
             }else{
-              return (<p className="text-primary max-sm:text-sm self-end" key={idx}>
-                {userName}: {message.content}
+              return (<p className="max-sm:text-sm self-end border-[3px] border-primary rounded p-4 bg-primary text-white shadow-brutal" key={idx}>
+                <strong>{userName}:</strong> {message.content}
               </p>)
             }
           })}

@@ -48,7 +48,7 @@ const FullReportPage = ({ report }: FullReportPageProps) => {
       </div>
 
       {report.companionStats.length > 0 && (
-        <div className="border border-black bg-white rounded-2xl p-5 shadow-sm">
+        <div className="border-[3px] border-black bg-white rounded p-5 shadow-brutal">
           <h3 className="text-xl font-bold mb-4">Companion Details</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-left">

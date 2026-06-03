@@ -46,7 +46,7 @@ const SubjectForm = () => {
             type="color"
             value={color}
             onChange={e => setColor(e.target.value)}
-            className="h-10 w-20 cursor-pointer rounded-lg border"
+            className="h-10 w-20 cursor-pointer rounded border-[3px] border-black"
           />
         </Field>
         <Field>

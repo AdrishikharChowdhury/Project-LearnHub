@@ -56,7 +56,7 @@ const ReportContent = ({ quizData, cooldownEnd }: ReportContentProps) => {
               <ol className="flex flex-col gap-2 w-full">
                 {question.options.map((option, optidx: number) => (
                   <li
-                    className={`text-base sm:text-lg py-3 px-4 border border-black rounded-xl ml-0 sm:ml-4 w-full flex gap-3 ${
+                    className={`text-base sm:text-lg py-3 px-4 border-[3px] border-black rounded ml-0 sm:ml-4 w-full flex gap-3 ${
                       optidx === question.correctAnswer
                         ? "bg-green-500 border-green-500 text-white"
                         : optidx === question.my_answer
@@ -70,7 +70,7 @@ const ReportContent = ({ quizData, cooldownEnd }: ReportContentProps) => {
                   </li>
                 ))}
               </ol>
-              <p className="text-sm sm:text-base py-4 px-5 border border-black ml-0 sm:ml-4 rounded-xl w-full bg-black text-white leading-relaxed">
+              <p className="text-sm sm:text-base py-4 px-5 border-[3px] border-black ml-0 sm:ml-4 rounded w-full bg-black text-white leading-relaxed">
                 <b>Explanation:</b> {question.explanation}
               </p>
             </div>

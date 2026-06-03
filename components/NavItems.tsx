@@ -42,14 +42,16 @@ const NavItems = ({ isQuiz }: NavItemsProps) => {
 
   return (
     <>
-      <div className="hidden sm:flex items-center gap-4">
+      <div className="hidden sm:flex items-center gap-2">
         {items.map((item, idx) => (
           <Link
             href={item.href}
             key={idx}
             className={cn(
-              "text-sm lg:text-base",
-              pathname === item.href && "text-primary font-semibold",
+              "px-4 py-2 text-sm lg:text-base font-bold border-[3px] border-black rounded transition-all",
+              pathname === item.href
+                ? "bg-primary text-white shadow-brutal"
+                : "bg-white text-black shadow-brutal hover:shadow-brutal-hover",
             )}
           >
             {item.label}
@@ -72,8 +74,8 @@ const NavItems = ({ isQuiz }: NavItemsProps) => {
             onClick={() => setOpen(false)}
           />
           <div className="relative ml-auto w-3/4 max-w-xs h-full bg-white shadow-xl flex flex-col">
-            <div className="flex items-center justify-between px-5 py-4 border-b">
-              <span className="font-bold text-lg">Menu</span>
+            <div className="flex items-center justify-between px-5 py-4 border-b-[3px] border-black">
+              <span className="font-extrabold text-lg">Menu</span>
               <button
                 onClick={() => setOpen(false)}
                 className="p-1 cursor-pointer"
@@ -88,9 +90,9 @@ const NavItems = ({ isQuiz }: NavItemsProps) => {
                   href={item.href}
                   key={idx}
                   className={cn(
-                    "px-4 py-3 rounded-xl text-base font-medium transition-colors",
+                    "px-4 py-3 rounded text-base font-bold transition-colors border-[3px] border-black",
                     pathname === item.href
-                      ? "bg-primary text-white"
+                      ? "bg-primary text-white shadow-brutal"
                       : "hover:bg-gray-100",
                   )}
                 >

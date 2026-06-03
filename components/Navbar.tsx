@@ -8,7 +8,7 @@ const Navbar = ({ isQuiz }: { isQuiz: boolean }) => {
     <nav className="navbar">
       <Link href="/">
         <div className="flex items-center gap-2.5 cursor-pointer">
-          <Image src="/images/logo.svg" alt="logo" width={56} height={54} className="size-10 sm:size-[56px]" />
+          <Image src="/images/logo.svg" alt="logo" width={150} height={150} className="size-10 sm:size-20" />
         </div>
       </Link>
       <div className="flex items-center gap-4 sm:gap-8">
@@ -18,7 +18,7 @@ const Navbar = ({ isQuiz }: { isQuiz: boolean }) => {
             <button className="btn-signin text-xs sm:text-sm px-3 sm:px-4">Sign in</button>
           </Show>
           <Show when="signed-in">
-            <UserButton />
+            <UserButton appearance={{ elements: { userButtonAvatarBox: "scale-[2]" } }} />
           </Show>
         </div>
       </div>

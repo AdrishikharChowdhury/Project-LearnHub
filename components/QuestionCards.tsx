@@ -67,8 +67,8 @@ const QuestionCards = ({ questions,companionId }: QuestionCardsProps) => {
   };
   const onSubmit = () => submitQuiz(questionsState);
   return (
-    <div className="flex flex-col w-full min-h-1/2 justify-between border-2 shadow-xl gap-4">
-      <div className="w-full p-3 sm:p-5 bg-primary text-white font-bold text-base sm:text-xl lg:text-2xl flex justify-between items-center">
+    <div className="flex flex-col w-full min-h-1/2 justify-between border-[3px] border-black shadow-brutal gap-4">
+      <div className="w-full p-3 sm:p-5 bg-primary text-white font-extrabold text-base sm:text-xl lg:text-2xl flex justify-between items-center border-b-[3px] border-black">
         <span>Question: {questionNo + 1}/{questions.length}</span>
         <span className={`font-mono ${timeLeft <= 60 ? "text-red-300 animate-pulse" : ""}`}>
           {formatTime(timeLeft)}

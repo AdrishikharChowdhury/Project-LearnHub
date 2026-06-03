@@ -80,9 +80,8 @@ const CompanionsList = ({
               </TableCell>
               <TableCell>
                 <div className="flex items-center gap-2 w-full justify-end">
-                    <span className="max-md:hidden">{companion.duration} mins</span>
-                    <span className="md:hidden">{companion.duration}m</span>
-                    <Image src={`/icons/clock.svg`} alt="minutes" className="md:hidden" width={14} height={14} />
+                    <Image src={`/icons/clock.svg`} alt="minutes" width={14} height={14} />
+                    <span>{companion.duration} mins</span>
                 </div>
               </TableCell>
             </TableRow>

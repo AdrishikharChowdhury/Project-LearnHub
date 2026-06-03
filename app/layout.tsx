@@ -26,7 +26,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${bricolage.variable} antialiased flex flex-col min-h-screen`}>
-        <ClerkProvider appearance={{ variables: { colorPrimary: "#fe5933" } }}>
+        <ClerkProvider appearance={{ variables: { colorPrimary: "#00e269" } }}>
           <Navbar isQuiz={isQuiz} />
           <div className="grow flex flex-col">
             {children}

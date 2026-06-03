@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-white border-t-2 border-black mt-auto">
+    <footer className="w-full bg-white border-t-[3px] border-black mt-auto shadow-brutal">
       <div className="mx-auto max-w-[1400px] px-14 py-12 max-sm:px-6">
         <div className="grid grid-cols-4 gap-8 max-lg:grid-cols-2 max-sm:grid-cols-1">
           {/* Brand Column */}
@@ -24,7 +24,7 @@ const Footer = () => {
                 href="https://github.com"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 border-2 border-black rounded-lg hover:bg-black hover:text-white transition-all duration-300 transform hover:-translate-y-1"
+                className="p-2 border-[3px] border-black rounded hover:bg-black hover:text-white transition-all duration-300"
                 aria-label="GitHub"
               >
                 <svg
@@ -46,7 +46,7 @@ const Footer = () => {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 border-2 border-black rounded-lg hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 transform hover:-translate-y-1"
+                className="p-2 border-[3px] border-black rounded hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
                 aria-label="Twitter"
               >
                 <svg
@@ -67,7 +67,7 @@ const Footer = () => {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 border-2 border-black rounded-lg hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 transform hover:-translate-y-1"
+                className="p-2 border-[3px] border-black rounded hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300"
                 aria-label="LinkedIn"
               >
                 <svg
@@ -91,7 +91,7 @@ const Footer = () => {
 
           {/* Quick Links Column */}
           <div className="flex flex-col gap-4">
-            <h3 className="font-bold text-lg text-black flex items-center gap-2">
+            <h3 className="font-black text-lg text-black flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -109,24 +109,24 @@ const Footer = () => {
               </svg>
               Explore
             </h3>
-            <ul className="flex flex-col gap-2.5 text-sm text-muted-foreground">
+            <ul className="flex flex-col gap-2.5 text-sm">
               <li>
-                <Link href="/" className="hover:text-primary transition-colors duration-200 font-medium">
+                <Link href="/" className="font-bold text-black hover:text-primary transition-colors duration-200">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/companions" className="hover:text-primary transition-colors duration-200 font-medium">
+                <Link href="/companions" className="font-bold text-black hover:text-primary transition-colors duration-200">
                   Companions Library
                 </Link>
               </li>
               <li>
-                <Link href="/quiz" className="hover:text-primary transition-colors duration-200 font-medium">
+                <Link href="/quiz" className="font-bold text-black hover:text-primary transition-colors duration-200">
                   Practice Quizzes
                 </Link>
               </li>
               <li>
-                <Link href="/my-journey" className="hover:text-primary transition-colors duration-200 font-medium">
+                <Link href="/my-journey" className="font-bold text-black hover:text-primary transition-colors duration-200">
                   My Journey Dashboard
                 </Link>
               </li>
@@ -135,7 +135,7 @@ const Footer = () => {
 
           {/* Tech Integration Column */}
           <div className="flex flex-col gap-4">
-            <h3 className="font-bold text-lg text-black flex items-center gap-2">
+            <h3 className="font-black text-lg text-black flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -156,13 +156,13 @@ const Footer = () => {
               Powered by advanced real-time conversational intelligence and state-of-the-art inference engines.
             </p>
             <div className="flex flex-wrap gap-2 mt-1">
-              <span className="bg-orange-50 text-orange-700 border border-orange-200 rounded-full px-3 py-1 text-xs font-semibold">
+              <span className="bg-orange-50 text-orange-700 border-[3px] border-orange-500 rounded px-3 py-1 text-xs font-bold">
                 Vapi AI (Voice)
               </span>
-              <span className="bg-green-50 text-green-700 border border-green-200 rounded-full px-3 py-1 text-xs font-semibold">
+              <span className="bg-green-50 text-green-700 border-[3px] border-green-500 rounded px-3 py-1 text-xs font-bold">
                 Groq SDK (Inference)
               </span>
-              <span className="bg-blue-50 text-blue-700 border border-blue-200 rounded-full px-3 py-1 text-xs font-semibold">
+              <span className="bg-blue-50 text-blue-700 border-[3px] border-blue-500 rounded px-3 py-1 text-xs font-bold">
                 Llama 3 / GPT-4
               </span>
             </div>

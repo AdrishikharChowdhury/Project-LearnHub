@@ -26,28 +26,31 @@ const QuizList = async () => {
       </AccordionTrigger>
       <AccordionContent>
         {quizzes.length === 0 ? (
-          <p className="text-muted-foreground text-center py-8 bg-white border border-black rounded-3xl">
+          <p className="text-muted-foreground text-center py-8 bg-white border-[3px] border-black rounded shadow-brutal">
             No quizzes taken yet. Start a quiz session to see your progress.
           </p>
         ) : (
-          <section className="flex gap-4 overflow-x-auto no-scrollbar bg-white p-6 border border-black rounded-2xl w-full">
+          <section className="flex gap-4 overflow-x-auto no-scrollbar bg-white p-6 border-[3px] border-black rounded w-full shadow-brutal">
             {quizzes.reverse().map((quiz, idx) => (
               <Link key={idx} href={`/my-journey/report/${quiz.id}`} className="no-underline! shrink-0">
                 <div
-                  className="h-full w-80 rounded-2xl border border-black p-5 flex flex-col justify-between hover:shadow-md transition-shadow"
-                  style={{
-                    backgroundColor: getSubjectColor(quiz.companions.subject),
-                  }}
+                  className="relative group h-full w-80 rounded border-[3px] border-black shadow-brutal hover:shadow-brutal-hover transition-all overflow-hidden bg-white"
                 >
-                  <div className="flex flex-col gap-1">
-                    <span className="text-xs font-medium uppercase tracking-wider text-black/60">Quiz on</span>
-                    <h2 className="text-2xl font-bold truncate text-black">{quiz.companions?.topic}</h2>
-                  </div>
-                  <div className="mt-6 flex flex-col gap-2">
-                    <span className="subject-badge w-fit">{quiz.companions?.subject}</span>
-                    <p className="text-xs text-black/70">
-                      <b>Submitted:</b> {formatTimestamp(quiz.created_at)}
-                    </p>
+                  <div
+                    className="absolute left-0 top-0 bottom-0 w-2 group-hover:w-full transition-all duration-500 ease-in-out"
+                    style={{ backgroundColor: getSubjectColor(quiz.companions.subject) }}
+                  />
+                  <div className="relative z-10 p-5 flex flex-col justify-between" style={{ minHeight: "100%" }}>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-xs font-black uppercase tracking-wider text-black/60">Quiz on</span>
+                      <h2 className="text-2xl font-black truncate text-black">{quiz.companions?.topic}</h2>
+                    </div>
+                    <div className="mt-6 flex flex-col gap-2">
+                      <span className="subject-badge w-fit">{quiz.companions?.subject}</span>
+                      <p className="text-xs text-black/70">
+                        <b>Submitted:</b> {formatTimestamp(quiz.created_at)}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </Link>

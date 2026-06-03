@@ -47,7 +47,7 @@ const Profile = async () => {
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-4 w-full md:w-auto">
-          <div className="border border-black rounded-xl p-3 px-4 flex items-center gap-3 bg-white shadow-sm min-w-45">
+          <div className="border-[3px] border-black rounded p-3 px-4 flex items-center gap-3 bg-white shadow-brutal min-w-45">
             <Image
               src="/icons/check.svg"
               alt="checkmark"
@@ -55,11 +55,11 @@ const Profile = async () => {
               height={22}
             />
             <div className="flex flex-col">
-              <span className="text-2xl font-bold leading-none">{sessionHistory.length}</span>
+              <span className="text-2xl font-black leading-none">{sessionHistory.length}</span>
               <span className="text-xs text-muted-foreground mt-1">Lessons Completed</span>
             </div>
           </div>
-          <div className="border border-black rounded-xl p-3 px-4 flex items-center gap-3 bg-white shadow-sm min-w-45">
+          <div className="border-[3px] border-black rounded p-3 px-4 flex items-center gap-3 bg-white shadow-brutal min-w-45">
             <Image
               src="/icons/cap.svg"
               alt="checkmark"

@@ -25,11 +25,11 @@ const MessagesList = async () => {
           </AccordionTrigger>
           <AccordionContent>
             {messagesHistories.length === 0 ? (
-              <p className="text-muted-foreground text-center py-8 bg-white border border-black rounded-3xl">
+              <p className="text-muted-foreground text-center py-8 bg-white border-[3px] border-black rounded shadow-brutal">
                 No conversation history found. Start talking to your companions.
               </p>
             ) : (
-              <section className="flex flex-col gap-4 bg-white p-6 border border-black rounded-2xl w-full">
+              <section className="flex flex-col gap-4 bg-white p-6 border-[3px] border-black rounded w-full shadow-brutal">
                 <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
                   {messagesHistories
                     .reverse()

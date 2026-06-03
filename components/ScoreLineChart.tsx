@@ -25,15 +25,15 @@ const ScoreLineChart = ({ trend }: ScoreLineChartProps) => {
 
   if (trend.length === 0) {
     return (
-      <div className="flex items-center justify-center h-64 border-2 rounded-2xl text-muted-foreground">
+      <div className="flex items-center justify-center h-64 border-[3px] border-black rounded text-muted-foreground shadow-brutal">
         No quiz data this month
       </div>
     );
   }
 
   return (
-    <div ref={containerRef} className="border-2 rounded-2xl p-4">
-      <h3 className="text-lg font-bold mb-2">Score Trend</h3>
+    <div ref={containerRef} className="border-[3px] border-black rounded p-4 shadow-brutal">
+      <h3 className="text-lg font-extrabold mb-2">Score Trend</h3>
       <LineChart
         xAxis={[{
           data: trend.map((t) => t.day),

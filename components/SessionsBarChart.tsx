@@ -25,15 +25,15 @@ const SessionsBarChart = ({ data }: SessionsBarChartProps) => {
 
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-64 border-2 rounded-2xl text-muted-foreground">
+      <div className="flex items-center justify-center h-64 border-[3px] border-black rounded text-muted-foreground shadow-brutal">
         No session data this month
       </div>
     );
   }
 
   return (
-    <div ref={containerRef} className="border-2 rounded-2xl p-4">
-      <h3 className="text-lg font-bold mb-2">Sessions per Companion</h3>
+    <div ref={containerRef} className="border-[3px] border-black rounded p-4 shadow-brutal">
+      <h3 className="text-lg font-extrabold mb-2">Sessions per Companion</h3>
       <BarChart
         xAxis={[{
           data: data.map((d) => d.topic.length > 12 ? d.topic.slice(0, 12) + "..." : d.topic),

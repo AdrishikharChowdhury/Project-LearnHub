@@ -34,7 +34,7 @@ const page = async ({ params }: MessageSessionPageProps) => {
                   src={user.imageUrl}
                   width={32}
                   height={32}
-                  className="rounded-full border border-black/20"
+                  className="rounded-full border-[3px] border-black"
                 />
               ) : (
                 ""
@@ -45,10 +45,10 @@ const page = async ({ params }: MessageSessionPageProps) => {
             </div>
 
             <p
-              className={`py-3 px-4 sm:py-3.5 sm:px-5 rounded-2xl text-sm sm:text-base leading-relaxed ${
+              className={`py-3 px-4 sm:py-3.5 sm:px-5 rounded text-sm sm:text-base leading-relaxed border-[3px] border-black ${
                 message.role === "user"
-                  ? "bg-primary text-white rounded-tr-none self-end"
-                  : "bg-white text-black border border-black rounded-tl-none"
+                  ? "bg-primary text-white shadow-brutal"
+                  : "bg-white text-black shadow-brutal"
               }`}
             >
               {message.content}
