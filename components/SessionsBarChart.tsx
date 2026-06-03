@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState, useEffect } from "react";
 import { BarChart } from "@mui/x-charts";
 
 interface SessionsBarChartProps {
@@ -7,6 +8,21 @@ interface SessionsBarChartProps {
 }
 
 const SessionsBarChart = ({ data }: SessionsBarChartProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setWidth(entry.contentRect.width);
+      }
+    });
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
   if (data.length === 0) {
     return (
       <div className="flex items-center justify-center h-64 border-2 rounded-2xl text-muted-foreground">
@@ -16,7 +32,7 @@ const SessionsBarChart = ({ data }: SessionsBarChartProps) => {
   }
 
   return (
-    <div className="border-2 rounded-2xl p-4">
+    <div ref={containerRef} className="border-2 rounded-2xl p-4">
       <h3 className="text-lg font-bold mb-2">Sessions per Companion</h3>
       <BarChart
         xAxis={[{
@@ -30,7 +46,7 @@ const SessionsBarChart = ({ data }: SessionsBarChartProps) => {
           label: "Sessions",
           color: "#fe5933",
         }]}
-        width={400}
+        width={Math.max(width, 300)}
         height={250}
         slotProps={{ legend: { hidden: true } }}
       />
