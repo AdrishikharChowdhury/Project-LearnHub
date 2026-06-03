@@ -52,7 +52,7 @@ const ScoreLineChart = ({ trend }: ScoreLineChartProps) => {
         }]}
         width={Math.max(width, 300)}
         height={250}
-        slotProps={{ legend: { hidden: true } }}
+        hideLegend
       />
     </div>
   );
