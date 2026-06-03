@@ -1,7 +1,6 @@
 
 
 import { getCompanionSession } from "@/lib/actions/companion.action";
-import { getSubjectColor } from "@/lib/utils";
 import Image from "next/image";
 import LaunchQuizButton from "./LaunchQuizButton";
 
@@ -11,7 +10,11 @@ interface CompanionQuizCardProps {
   topic: string;
   subject: string;
   duration: number;
-  color: string;
+  subjectData?: {
+    icon_url: string;
+    color: string;
+    display_name: string;
+  } | null;
 }
 
 const CompanionQuizCard  = async ({
@@ -20,11 +23,11 @@ const CompanionQuizCard  = async ({
   topic,
   subject,
   duration,
-  color,
+  subjectData,
 }: CompanionQuizCardProps) => {
     const isQuiz=await getCompanionSession(id)
   return (
-    <article className="companion-card shrink-0" style={{ backgroundColor: getSubjectColor(subject) }}>
+    <article className="companion-card shrink-0" style={{ backgroundColor: subjectData?.color || "#E5D0FF" }}>
       <div className="flex justify-between items-center">
         <div className="subject-badge">{subject}</div>
         <button className="companion-bookmark">

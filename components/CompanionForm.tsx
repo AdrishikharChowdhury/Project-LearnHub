@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 // import { toast } from "sonner";
 import * as z from "zod";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,9 +20,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { subjects, voices } from "@/constants";
+import { voices } from "@/constants";
 import { Textarea } from "./ui/textarea";
 import { createCompanion } from "@/lib/actions/companion.action";
+import { getSubjects, type SubjectData } from "@/lib/actions/subject.action";
 import { redirect } from "next/navigation";
 
 const formSchema = z.object({
@@ -34,6 +36,12 @@ const formSchema = z.object({
 });
 
 const CompanionForm = () => {
+  const [subjects, setSubjects] = useState<SubjectData[]>([]);
+
+  useEffect(() => {
+    getSubjects().then(setSubjects);
+  }, []);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema) as any,
     defaultValues: {
@@ -95,8 +103,15 @@ const CompanionForm = () => {
                   <SelectValue placeholder="Choose Subject" className="input" />
                 </SelectTrigger>
                 <SelectContent>
-                  {subjects.map((subject,idx:number)=>(
-                    <SelectItem value={subject} className='capitalize' key={idx}>{subject}</SelectItem>
+                  {subjects.map((s) => (
+                    <SelectItem value={s.name} className='capitalize' key={s.id}>
+                      <div className="flex items-center gap-2">
+                        {s.icon_url && (
+                          <img src={s.icon_url} alt="" width={20} height={20} className="rounded-full size-5" />
+                        )}
+                        {s.display_name}
+                      </div>
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>

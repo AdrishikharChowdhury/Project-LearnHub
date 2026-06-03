@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { subjects } from "@/constants";
+import { getSubjects, type SubjectData } from "@/lib/actions/subject.action";
 import { formUrlQuery, removeKeysFromUrlQuery } from "@jsmastery/utils";
 import { useEffect, useState } from "react";
 
@@ -17,6 +17,12 @@ const SubjectFilter = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get("subject") || "all";
   const [subject, setsubject] = useState(query);
+  const [subjects, setSubjects] = useState<SubjectData[]>([]);
+
+  useEffect(() => {
+    getSubjects().then(setSubjects);
+  }, []);
+
   useEffect(() => {
     const searchInterval = setTimeout(() => {
         let newUrl=""
@@ -48,9 +54,9 @@ const SubjectFilter = () => {
       </SelectTrigger>
       <SelectContent>
         <SelectItem value='all' >All Subjects</SelectItem>
-        {subjects.map((subject, idx: number) => (
-          <SelectItem value={subject} className="capitalize" key={idx}>
-            {subject}
+        {subjects.map((s) => (
+          <SelectItem value={s.name} className="capitalize" key={s.id}>
+            {s.display_name}
           </SelectItem>
         ))}
       </SelectContent>

@@ -1,5 +1,5 @@
 "use client";
-import { cn, configureAssistant, getSubjectColor } from "@/lib/utils";
+import { cn, configureAssistant } from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import Image from "next/image";
@@ -23,6 +23,7 @@ const CompanionComponent = ({
   userImage,
   style,
   voice,
+  subjectData,
 }: CompanionComponentProps) => {
   const [callStatus, setcallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [isSpeaking, setisSpeaking] = useState(false);
@@ -110,7 +111,7 @@ const CompanionComponent = ({
         <div className="companion-section">
           <div
             className="companion-avatar"
-            style={{ backgroundColor: getSubjectColor(subject) }}
+            style={{ backgroundColor: subjectData?.color || "#E5D0FF" }}
           >
             <div
               className={cn(
@@ -123,8 +124,8 @@ const CompanionComponent = ({
                   "opacity-100 animate-pulse",
               )}
             >
-              <Image
-                src={`/icons/${subject}.svg`}
+              <img
+                src={subjectData?.icon_url || `/icons/${subject}.svg`}
                 alt="subject"
                 width={150}
                 height={150}

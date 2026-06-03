@@ -7,9 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { cn, getSubjectColor } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+
 
 interface CompanionListProps {
   title: string;
@@ -40,16 +41,16 @@ const CompanionsList = ({
                 <Link href={`/companions/${companion.id}`}  className="no-underline! hover:no-underline active:no-underline">
                   <div className="flex items-center gap-2">
                     <div
-                      className="size-18 flex items-center justify-center rounded-lg max-md:hidden"
+                      className="size-24 flex items-center justify-center rounded-lg max-md:hidden"
                       style={{
-                        backgroundColor: getSubjectColor(companion.subject),
+                        backgroundColor: companion.subjectData?.color || "#E5D0FF",
                       }}
                     >
-                      <Image
-                        src={`/icons/${companion.subject}.svg`}
+                      <img
+                        src={companion.subjectData?.icon_url || `/icons/${companion.subject}.svg`}
                         alt={companion.subject}
-                        width={35}
-                        height={35}
+                        width={50}
+                        height={50}
                       />
                     </div>
                     <div className="flex flex-col gap-1 sm:gap-2">
@@ -66,14 +67,14 @@ const CompanionsList = ({
                 <div
                   className="flex items-center justify-center rounded-lg w-fit p-2 md:hidden"
                   style={{
-                    backgroundColor: getSubjectColor(companion.subject),
+                    backgroundColor: companion.subjectData?.color || "#E5D0FF",
                   }}
                 >
-                    <Image
-                        src={`/icons/${companion.subject}.svg`}
+                    <img
+                        src={companion.subjectData?.icon_url || `/icons/${companion.subject}.svg`}
                         alt={companion.subject}
-                        width={18}
-                        height={18}
+                        width={28}
+                        height={28}
                       />
                 </div>
               </TableCell>

@@ -79,4 +79,9 @@ interface CompanionComponentProps {
   userImage: string;
   voice: string;
   style: string;
+  subjectData?: {
+    icon_url: string;
+    color: string;
+    display_name: string;
+  } | null;
 }

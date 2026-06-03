@@ -55,7 +55,16 @@ export const getCompanion = async (id: string) => {
 
   if (error) return console.error(error);
 
-  return data[0];
+  const companion = data[0];
+  if (!companion) return null;
+
+  const { data: subject } = await supabase
+    .from("subjects")
+    .select("icon_url, color, display_name")
+    .eq("name", companion.subject)
+    .maybeSingle();
+
+  return { ...companion, subjectData: subject || null };
 };
 
 export const getAllCompanions = async ({
@@ -83,7 +92,16 @@ export const getAllCompanions = async ({
 
   if (error) throw new Error(error.message);
 
-  return companions;
+  const { data: subjects } = await supabase
+    .from("subjects")
+    .select("name, icon_url, color, display_name");
+
+  const subjectMap = new Map(subjects?.map(s => [s.name, s]) || []);
+
+  return companions.map((c: any) => ({
+    ...c,
+    subjectData: subjectMap.get(c.subject) || null,
+  }));
 };
 
 export const addToSessionHistory = async (companionId: string) => {
@@ -109,7 +127,19 @@ export const getRecentSessions = async (limit = 10) => {
     .eq("user_id", userId);
 
   if (error) throw new Error(error.message);
-  return data.map(({ companions }) => companions);
+
+  const companions = data.map(({ companions }) => companions);
+
+  const { data: subjects } = await supabase
+    .from("subjects")
+    .select("name, icon_url, color, display_name");
+
+  const subjectMap = new Map(subjects?.map(s => [s.name, s]) || []);
+
+  return companions.map((c: any) => ({
+    ...c,
+    subjectData: subjectMap.get(c.subject) || null,
+  }));
 };
 
 export const getUserSessions = async (userId: string, limit = 10) => {
@@ -122,7 +152,19 @@ export const getUserSessions = async (userId: string, limit = 10) => {
     .limit(limit);
 
   if (error) throw new Error(error.message);
-  return data.map(({ companions }) => companions);
+
+  const companions = data.map(({ companions }) => companions);
+
+  const { data: subjects } = await supabase
+    .from("subjects")
+    .select("name, icon_url, color, display_name");
+
+  const subjectMap = new Map(subjects?.map(s => [s.name, s]) || []);
+
+  return companions.map((c: any) => ({
+    ...c,
+    subjectData: subjectMap.get(c.subject) || null,
+  }));
 };
 
 export const getUserCompanions = async (userId: string) => {
@@ -133,7 +175,17 @@ export const getUserCompanions = async (userId: string) => {
     .eq("author", userId);
 
   if (error) throw new Error(error.message);
-  return data;
+
+  const { data: subjects } = await supabase
+    .from("subjects")
+    .select("name, icon_url, color, display_name");
+
+  const subjectMap = new Map(subjects?.map(s => [s.name, s]) || []);
+
+  return data.map(c => ({
+    ...c,
+    subjectData: subjectMap.get(c.subject) || null,
+  }));
 };
 
 export const getUserHistory = async (userId: string) => {
