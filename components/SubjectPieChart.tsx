@@ -53,7 +53,7 @@ const SubjectPieChart = ({ data }: SubjectPieChartProps) => {
         }]}
         width={Math.max(width, 300)}
         height={250}
-        slotProps={{ legend: { direction: "vertical", position: { vertical: "middle", horizontal: "end" } } }}
+        slotProps={{ legend: { direction: "horizontal", position: { vertical: "bottom", horizontal: "center" } } }}
       />
     </div>
   );

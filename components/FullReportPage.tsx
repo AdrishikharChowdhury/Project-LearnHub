@@ -1,11 +1,13 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import StatsCards from "./StatsCards";
 import ScoreLineChart from "./ScoreLineChart";
 import SessionsBarChart from "./SessionsBarChart";
-import SubjectPieChart from "./SubjectPieChart";
 import SendEmailButton from "./SendEmailButton";
 import { useRouter } from "next/navigation";
+
+const SubjectPieChart = dynamic(() => import("./SubjectPieChart"), { ssr: false });
 
 interface FullReportPageProps {
   report: MonthlyReport;
