@@ -50,7 +50,7 @@ const SubjectFilter = () => {
   return (
     <Select value={subject} onValueChange={(value) => setsubject(value ?? "")}>
       <SelectTrigger className="capitalize input">
-        <SelectValue placeholder="Choose Subject" className="input" />
+        <SelectValue placeholder="Choose Subject" />
       </SelectTrigger>
       <SelectContent>
         <SelectItem value='all' >All Subjects</SelectItem>

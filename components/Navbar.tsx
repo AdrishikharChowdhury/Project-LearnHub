@@ -18,7 +18,7 @@ const Navbar = ({ isQuiz }: { isQuiz: boolean }) => {
             <button className="btn-signin text-xs sm:text-sm px-3 sm:px-4">Sign in</button>
           </Show>
           <Show when="signed-in">
-            <UserButton appearance={{ elements: { userButtonAvatarBox: "scale-[2]" } }} />
+            <UserButton appearance={{ elements: { userButtonAvatarBox: "scale-150 sm:scale-[2]" } }} />
           </Show>
         </div>
       </div>

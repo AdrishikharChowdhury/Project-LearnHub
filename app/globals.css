@@ -5,7 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --primary: #01c78c;
+  color-scheme: light;
+  --primary: #098e66;
 
   --cta: #2c2c2c;
   --cta-gold: #fccc41;
